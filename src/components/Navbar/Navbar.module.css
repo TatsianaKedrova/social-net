@@ -3,10 +3,12 @@
     background-color: hotpink;
 }
 
-.item {
+.item a {
     color: white;
+    text-decoration: none;
+
 }
 
-.item.active {
-    color:red;
+.item a.active {
+    color:gold;
 }
