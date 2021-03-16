@@ -5,6 +5,7 @@ import Post from "./Posts/Post";
 const MyPosts = () => {
 	return (
 		<div className={classes.postBlock}>
+			<h3>My Posts</h3>
 			<div>
 				<div>
 					<textarea></textarea>
