@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import DialogItem from "./DialogItem";
 import classes from "./Dialogs.module.css";
+import Message from "./Message";
 
 
 	
@@ -9,43 +10,20 @@ const Dialogs = () => {
 	return (
 		<div className={classes.dialogs}>
 			<div className={classes.dialogsItems}>
-                <DialogItem name = {"Tatiana"} />
-                <DialogItem name = {"Sveta"} />
-                <DialogItem name = {"Elena"} />
-                <DialogItem name = {"Vladimir"} />
-                <DialogItem name = {"Nadin"} />
-                <DialogItem name = {"Sasha"} />
-                <DialogItem name = {"Diana"} />
-                <DialogItem name = {"Sherif"} />
-                
-				{/* <div className={classes.dialog}>
-					<NavLink to="/dialogs/2">Sveta</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/3">Elena</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/4">Vladimir</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/5">Nadin</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/6">Sasha</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/7">Diana</NavLink>
-				</div>
-				<div className={classes.dialog}>
-					<NavLink to="/dialogs/8">Jenia</NavLink>
-				</div> */}
+                <DialogItem name = {"Tatiana"} id = {1} />
+                <DialogItem name = {"Sveta"} id = {2}/>
+                <DialogItem name = {"Elena"} id = {3}/>
+                <DialogItem name = {"Vladimir"} id = {4}/>
+                <DialogItem name = {"Nadin"} id = {5}/>
+                <DialogItem name = {"Sasha"} id = {6}/>
+                <DialogItem name = {"Diana"} id = {7}/>
+                <DialogItem name = {"Sherif"} id = {8}/>
 			</div>
 			<div className={classes.messages}>
-				<div className={classes.message}>Hey</div>
-				<div className={classes.message}>Hello dear</div>
-				<div className={classes.message}>
-					Consistency and persistence are the keys for success
-				</div>
+                <Message message={"Hello"}/>
+                <Message message={"How are you?"}/>
+                <Message message={"Great! My React Typescript job is waiting for me!"}/>
+                <Message message={"Consistency and persistence are the keys for success"}/>
 			</div>
 		</div>
 	);
