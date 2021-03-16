@@ -1,4 +1,60 @@
-.content {
-    grid-area: c;
-    background-color: lightblue;
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
 }
+
+.dialogsItems .dialog {
+    padding: 10px;
+    text-decoration: none;
+}
+
+.dialogsItems .active {
+    color: gold;
+}
+.messages {
+    padding: 10px;
+}
+
+.messages .message {
+
+}
+
+.dialog a {
+    color: rgb(122, 35, 122);
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .dialogs {
+    display: flex;
+}
+
+.dialogsItems {
+    flex: 50%;
+}
+
+.messages {
+    flex: 50%;
+} */
