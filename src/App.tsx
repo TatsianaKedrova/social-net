@@ -8,15 +8,14 @@ import Profile from "./components/Profile/Profile";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import state, { RootStateType } from "./redux/state";
+import { StoreType } from "./redux/state";
 
 
 export type AppType = {
-	state: RootStateType
-	addPost:(postMessage: string) => void
+	store: StoreType
 }
 
-const App = (props: AppType) => {
+const App: React.FC<AppType> = (props) => {
 
 	return (
 		<BrowserRouter>
@@ -28,12 +27,13 @@ const App = (props: AppType) => {
 					<Switch>
 						<Route exact path="/dialogs"
 							   component={ () => <Dialogs
-								   state = {props.state.dialogsPage}/> } />
+								   state = {props.store._state.dialogsPage}/> } />
 
 						<Route path="/profile"
 							   render = { () => <Profile
-								   state = {props.state.profilePage}
-							   		addPost = {props.addPost}
+								   profilePage = {props.store._state.profilePage}
+								   addPost = {props.store.addPost.bind(props.store)}
+								   updateNewPostText = {props.store.updateNewPostText.bind(props.store)}
 							   /> } />
 						<Route path="/news"
 							   render = { () => <News /> } />

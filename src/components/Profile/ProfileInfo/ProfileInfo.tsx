@@ -11,7 +11,6 @@ const ProfileInfo = () => {
 				/>
 			</div>
 			<div className={classes.descriptionBlock}>
-				ava + info
 			</div>
 		</div>
 	);
