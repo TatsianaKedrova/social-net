@@ -1,15 +1,21 @@
 import React, {KeyboardEvent} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Posts/Post";
-import { PostType } from "../../../redux/state";
+import {
+	addPostActionCreator,
+	updateNewPostTextActionCreator,
+	PostType, UpdatePostActionType, AddPostActionType
+} from "../../../redux/state";
+import {Button, Jumbotron} from "react-bootstrap";
 
 
 export type MyPostsPropsType = {
     posts: Array<PostType>
 	newPostText: string
-	addPost: () => void
-	updateNewPostText: (newText: string) => void
+	dispatch: (action: any) => void
 }
+
+// AddPostActionType | UpdatePostActionType
 
 const MyPosts = (props: MyPostsPropsType) => {
     let postElements =
@@ -19,28 +25,30 @@ const MyPosts = (props: MyPostsPropsType) => {
 	let newPostElement = React.createRef<HTMLTextAreaElement>();
 
 	let addPost = () => {
-		props.addPost();
+		props.dispatch(addPostActionCreator());
 	}
 
 	let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-		if(e.key === "Enter") {
-			props.addPost();
+
+		if (props.newPostText.trim() && e.key === "Enter") {
+			props.dispatch(addPostActionCreator());
 		}
 	}
 	let onPostChange = () => {
 		let text = newPostElement.current?.value;
 		if(text) {
-			props.updateNewPostText(text);
-		} else {
-			props.updateNewPostText('');
-		}
+			let action = updateNewPostTextActionCreator(text);
+			props.dispatch(action);
+		} /*else {
+			props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: '' });
+		}*/
 
 	}
 
 	return (
 		<div className={classes.postBlock}>
-			<h3>My Posts</h3>
-			<div>
+			<Jumbotron >
+			<h3 className={classes.h3Style}>Posts</h3>
 				<div>
 					<textarea
 						ref={newPostElement}
@@ -50,11 +58,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 					/>
 				</div>
 				<div>
-					<button
+					<Button variant="primary"
+						onClick={ addPost }>
+						Add Post
+					</Button>
 
-						onClick={ addPost }>Add post</button>
 				</div>
-			</div>
+			</Jumbotron>
 
 			<div className={classes.posts}>
                 {postElements}

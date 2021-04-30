@@ -1,8 +1,10 @@
 .header {
     grid-area: h;
-    background-color: greenyellow;
+    background-color: lightskyblue;
 }
-
+/*.socialNetStyle {
+    justify-content: center;
+}*/
 .header img {
     width: 70px;
     height: 70px;
