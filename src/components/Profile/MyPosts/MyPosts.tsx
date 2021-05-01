@@ -1,12 +1,9 @@
 import React, {KeyboardEvent} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Posts/Post";
-import {
-	addPostActionCreator,
-	updateNewPostTextActionCreator,
-	PostType, UpdatePostActionType, AddPostActionType
-} from "../../../redux/state";
+import {PostType} from "../../../redux/store";
 import {Button, Jumbotron} from "react-bootstrap";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 export type MyPostsPropsType = {

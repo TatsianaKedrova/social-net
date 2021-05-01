@@ -1,3 +1,6 @@
+import profileReducer, {AddPostActionType, UpdatePostActionType} from "./profile-reducer";
+import dialogsReducer, {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
+
 declare const window: any;
 
 export type MessageType = {
@@ -33,24 +36,6 @@ export type RootStateType = {
     // sidebar: SidebarType
 }
 
-export type AddPostActionType = {
-    type: typeof ADD_POST
-}
-export type UpdatePostActionType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
-
-type UpdateMessageBodyType = {
-    type: typeof UPDATE_NEW_MESSAGE_BODY
-    body: string
-}
-
-export type SendMessageType = {
-    type: typeof SEND_MESSAGE
-    // newMessage: string
-}
-
 export type DispatchFucntionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
 
 export type StoreType = {
@@ -59,14 +44,8 @@ export type StoreType = {
     getState: () => RootStateType,
     subscribe: (observer: (state: RootStateType) => void) => void,
     dispatch: (action: DispatchFucntionType) => void
-    /*addPost: () => void,
-    updateNewPostText: (newText: string) => void,*/
-}
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+}
 
 const store: StoreType = {
     _state: {
@@ -106,23 +85,14 @@ const store: StoreType = {
     subscribe(observer) {
         this._callSubscriber = observer;
     },
-    /*_addPost() {
-        let newPost: PostType = {
-            id: new Date().getTime(),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        console.log("State is changed");
-        this._callSubscriber(this._state);
-    },
-    _updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-    },*/
+
     dispatch(action) {
-        switch (action.type) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber(this._state);
+
+        /*switch (action.type) {
             case SEND_MESSAGE:
                 let body = this._state.dialogsPage.newMessageBody;
                 this._state.dialogsPage.newMessageBody = '';
@@ -149,26 +119,9 @@ const store: StoreType = {
                 return this._callSubscriber(this._state)
             default:
                 return this._state
-        }
+        }*/
     }
 }
-
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
-
-export const updateNewPostTextActionCreator = (text: string): UpdatePostActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-});
-
-export const updateNewMessageBodyActionCreator = (updatedMessage: string): UpdateMessageBodyType => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: updatedMessage
-});
-
-export const sendMessageActionCreator = (): SendMessageType => ({
-    type: SEND_MESSAGE
-
-});
 
 window.store = store;
 
