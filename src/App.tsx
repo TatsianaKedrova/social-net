@@ -8,7 +8,7 @@ import Profile from "./components/Profile/Profile";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {DispatchFucntionType, RootStateType, StoreType} from "./redux/store";
+import { RootStateType, StoreType} from "./redux/store";
 
 
 export type AppType = {
