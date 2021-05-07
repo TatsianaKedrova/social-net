@@ -33,7 +33,7 @@ let initialState = {
     newMessageBody: '',
 };
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchFucntionType) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchFucntionType) : DialogsPageType=> {
 
     switch (action.type) {
         case SEND_MESSAGE:

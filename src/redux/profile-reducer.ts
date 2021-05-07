@@ -18,7 +18,7 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: DispatchFucntionType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: DispatchFucntionType) : ProfilePageType => {
 
     switch (action.type) {
         case UPDATE_NEW_POST_TEXT:

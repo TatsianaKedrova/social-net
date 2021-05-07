@@ -3,13 +3,13 @@ import classes from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 import {PostType} from "../../../redux/store";
 import {Button, Jumbotron} from "react-bootstrap";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 
 export type MyPostsPropsType = {
-    posts: Array<PostType>
-	newPostText: string
-	dispatch: (action: any) => void
+	updateNewPostText: (text: string) => void,
+	addPost: () => void,
+	posts: Array<PostType>,
+	newPostText: string,
 }
 
 // AddPostActionType | UpdatePostActionType
@@ -21,26 +21,22 @@ const MyPosts = (props: MyPostsPropsType) => {
 
 	let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-	let addPost = () => {
-		props.dispatch(addPostActionCreator());
+	let onAddPost = () => {
+		props.addPost();
 	}
 
-	let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-
+	/*let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (props.newPostText.trim() && e.key === "Enter") {
 			props.dispatch(addPostActionCreator());
 		}
-	}
+	}*/
+
 	let onPostChange = () => {
 		let text = newPostElement.current?.value;
 		if(text) {
-			let action = updateNewPostTextActionCreator(text);
-			props.dispatch(action);
-		} /*else {
-			props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: '' });
-		}*/
-
-	}
+			props.updateNewPostText(text);
+		}
+		}
 
 	return (
 		<div className={classes.postBlock}>
@@ -51,12 +47,12 @@ const MyPosts = (props: MyPostsPropsType) => {
 						ref={newPostElement}
 						value={props.newPostText}
 						onChange={onPostChange}
-						onKeyPress={ onKeyPress }
+						// onKeyPress={ onKeyPress }
 					/>
 				</div>
 				<div>
 					<Button variant="primary"
-						onClick={ addPost }>
+						onClick={ onAddPost }>
 						Add Post
 					</Button>
 
