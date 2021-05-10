@@ -14,7 +14,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 export type AppType = {
 	/*state: RootStateType
 	dispatch: (action: DispatchFucntionType) => void*/
-	store: StoreType
+	// store: StoreType
 }
 
 const App: React.FC<AppType> = (props) => {
@@ -28,14 +28,10 @@ const App: React.FC<AppType> = (props) => {
 				<div className="app-wrapper-content">
 					<Switch>
 						<Route exact path="/dialogs"
-							   render={ () => <DialogsContainer
-								   store={props.store}
-							   />} />
+							   render={ () => <DialogsContainer />} />
 
 						<Route path="/profile"
-							   render = { () => <Profile
-								   store={props.store}
-							   /> } />
+							   render = { () => <Profile /> } />
 						<Route path="/news"
 							   render = { () => <News /> } />
 						<Route path="/music"

@@ -3,38 +3,51 @@ import Post from "./Posts/Post";
 import {PostType, StoreType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
+import StoreContext from "../../../StoreContext";
 
 
 export type MyPostsPropsType = {
-	store: StoreType
+    // store: StoreType
 }
 
 // AddPostActionType | UpdatePostActionType
 
 const MyPostsContainer = (props: MyPostsPropsType) => {
 
-	let state = props.store.getState()
 
-	let addPost = () => {
-		props.store.dispatch(addPostActionCreator());
-	}
+    /*let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (props.newPostText.trim() && e.key === "Enter") {
+            props.dispatch(addPostActionCreator());
+        }
+    }*/
 
-	let onPostChange = (text: string) => {
-		if(text) {
-			let action = updateNewPostTextActionCreator(text);
-			props.store.dispatch(action);
-		}
-	}
+    return (
 
-	/*let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-		if (props.newPostText.trim() && e.key === "Enter") {
-			props.dispatch(addPostActionCreator());
-		}
-	}*/
+        <StoreContext.Consumer>
+            {(store) => {
+                let state = store.getState()
 
-	return (
-		<MyPosts updateNewPostText={onPostChange} addPost={addPost} posts={state.profilePage.posts} newPostText={state.profilePage.newPostText}/>
-	);
+                let addPost = () => {
+                    store.dispatch(addPostActionCreator());
+                }
+
+                let onPostChange = (text: string) => {
+                    if (text) {
+                        let action = updateNewPostTextActionCreator(text);
+                        store.dispatch(action);
+                    }
+                }
+                return (
+                    <MyPosts
+                        updateNewPostText={onPostChange}
+                        addPost={addPost} posts={state.profilePage.posts}
+                        newPostText={state.profilePage.newPostText}/>
+                )
+            }
+            }
+        </StoreContext.Consumer>
+
+    );
 };
 
 export default MyPostsContainer;

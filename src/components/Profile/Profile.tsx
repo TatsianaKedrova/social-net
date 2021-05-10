@@ -5,14 +5,14 @@ import {DispatchFucntionType, ProfilePageType, StoreType} from "../../redux/stor
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 export type ProfilePropsType = {
-	store: StoreType
+	// store: StoreType
 }
 
 const Profile = (props: ProfilePropsType) => {
 	return (
 		<div>
 			<ProfileInfo />
-			<MyPostsContainer store={props.store} />
+			<MyPostsContainer />
 		</div>
 	);
 };
