@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store from './redux/store'
+import store from './redux/redux-store';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {RootStateType} from "./redux/store";
-import {Provider} from "./StoreContext";
-
+import { Provider } from 'react-redux';
 
 let rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
@@ -15,7 +14,7 @@ let rerenderEntireTree = (state: RootStateType) => {
 
             <BrowserRouter>
                 <Provider store={store}>
-                    <App/>
+                    <App />
                 </Provider>
 
             </BrowserRouter>

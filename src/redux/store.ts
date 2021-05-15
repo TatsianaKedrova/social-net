@@ -38,6 +38,8 @@ export type RootStateType = {
 
 export type DispatchFucntionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
 
+export type PostDispatchType = AddPostActionType | UpdatePostActionType;
+
 export type StoreType = {
     _state: RootStateType,
     _callSubscriber: (state: RootStateType) => void,
