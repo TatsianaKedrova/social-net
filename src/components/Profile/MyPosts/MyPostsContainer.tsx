@@ -5,44 +5,6 @@ import {connect} from "react-redux";
 import Dialogs from "../../Dialogs/Dialogs";
 
 
-export type MyPostsPropsType = {
-    // store: StoreType
-}
-
-
-const MyPostsContainer = (props: MyPostsPropsType) => {
-
-	/*let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (props.newPostText.trim() && e.key === "Enter") {
-            props.dispatch(addPostActionCreator());
-        }
-    }*/
-
-		/*<StoreContext.Consumer>
-			{(store) => {
-				let state = store.getState()
-
-				let addPost = () => {
-					store.dispatch(addPostActionCreator());
-				}
-
-				let onPostChange = (text: string) => {
-					if (text) {
-						let action = updateNewPostTextActionCreator(text);
-						store.dispatch(action);
-					}
-				}
-				return (
-					<MyPosts
-						updateNewPostText={onPostChange}
-						addPost={addPost} posts={state.profilePage.posts}
-						newPostText={state.profilePage.newPostText}/>
-				)
-			}
-			}
-		</StoreContext.Consumer>*/
-
-
 	let mapStateToProps = (state: RootStateType) => {
 		return {
 			posts: state.profilePage.posts,
@@ -63,7 +25,5 @@ const MyPostsContainer = (props: MyPostsPropsType) => {
 	}
 
 	const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-};
 
 export default MyPostsContainer;
