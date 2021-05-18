@@ -27,24 +27,3 @@ export type DialogsContainerConnectType = ConnectedProps<typeof DialogsContainer
 
 
 export default DialogsContainer;
-
-
-/*return (
-    <StoreContext.Consumer>
-        { (store)=> {
-            const onNewMessageChange = (body: string) => {
-                store.dispatch(updateNewMessageBodyActionCreator(body));
-            }
-
-            let onSendMessageClick = () => {
-                store.dispatch(sendMessageActionCreator());
-            }
-            return <Dialogs
-                updateNewMessageBody={onNewMessageChange}
-                sendMessage={onSendMessageClick}
-                dialogsPage={store.getState().dialogsPage}/>
-        }
-    }
-    </StoreContext.Consumer>
-)*/
-

@@ -10,6 +10,12 @@ const Navbar = () => {
 				<NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink>
 			</div>
 			<br />
+
+			<div className={classes.item}>
+				<NavLink to="/users" activeClassName={classes.active}>Users</NavLink>
+			</div>
+			<br />
+
 			<div className={classes.item}>
 				<NavLink to="/dialogs" activeClassName={classes.active} >Messages</NavLink>
 			</div>
@@ -30,6 +36,5 @@ const Navbar = () => {
 		</nav>
 	);
 };
-//`${classes.item} ${classes.active}`
 export default Navbar;
 
