@@ -21,23 +21,27 @@ let initialState = {
 const profileReducer = (state: ProfilePageType = initialState, action: DispatchFucntionType) : ProfilePageType => {
 
     switch (action.type) {
-        case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = {...state};
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
-        }
+        case UPDATE_NEW_POST_TEXT:
+            return {
+                ...state,
+                newPostText: action.newText
+            };
+
         case ADD_POST:
         let newPost: PostType = {
             id: new Date().getTime(),
             message: state.newPostText,
             likesCount: 0
         };
-        let stateCopy = {...state};
-        stateCopy.posts = [...state.posts];
-        if (stateCopy.newPostText) {
-            stateCopy.posts.push(newPost);
-            stateCopy.newPostText = '';
-        } return stateCopy;
+            // if (stateCopy.newPostText.trim()) {
+            // }
+
+            return {
+            ...state,
+            posts: [...state.posts, newPost],
+            newPostText: ''
+        };
+
         default:
             return state;
     }

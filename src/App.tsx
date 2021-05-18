@@ -7,7 +7,6 @@ import Profile from "./components/Profile/Profile";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import { StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
@@ -32,6 +31,10 @@ const App: React.FC<AppPropsType> = (props) => {
 
 						<Route path="/profile"
 							   render = { () => <Profile /> } />
+
+						<Route path="/users"
+							   render = { () => <div>users</div> } />
+
 						<Route path="/news"
 							   render = { () => <News /> } />
 						<Route path="/music"

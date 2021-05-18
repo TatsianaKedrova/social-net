@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store, {AppRootType} from './redux/redux-store';
+import store from './redux/redux-store';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import { Provider } from "react-redux";
 
-let rerenderEntireTree = (state: AppRootType) => {
+// let rerenderEntireTree = (state: AppRootType) => {
     ReactDOM.render(
         <React.StrictMode>
 
@@ -20,9 +20,9 @@ let rerenderEntireTree = (state: AppRootType) => {
 
         </React.StrictMode>,
         document.getElementById('root'));
-}
 
-rerenderEntireTree(store.getState());
+
+// rerenderEntireTree(store.getState());
 /*store.subscribe(() => {
     let state = store.getState();
     rerenderEntireTree(state)

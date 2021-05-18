@@ -6,63 +6,65 @@ import {Button, Jumbotron} from "react-bootstrap";
 
 
 export type MyPostsPropsType = {
-	posts: Array<PostType>,
-	newPostText: string,
-	updateNewPostText: (text: string) => void,
-	addPost: () => void,
+    posts: Array<PostType>,
+    newPostText: string,
+    updateNewPostText: (text: string) => void,
+    addPost: () => void,
 }
 // AddPostActionType | UpdatePostActionType
 
 const MyPosts = (props: MyPostsPropsType) => {
     let postElements =
         props.posts.map(p => <Post key={p.id} message={p.message} id={p.id} likesCount={p.likesCount}/>
-    )
+        )
 
-	let newPostElement = React.createRef<HTMLTextAreaElement>();
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-	let onAddPost = () => {
-		props.addPost();
-	}
-
-	/*let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-		if (props.newPostText.trim() && e.key === "Enter") {
-			props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+    	if (props.newPostText.trim()) {
+			props.addPost();
 		}
-	}*/
+    }
 
-	let onPostChange = () => {
-		let text = newPostElement.current?.value;
-		if(text) {
-			props.updateNewPostText(text);
-		}
-		}
+    let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (props.newPostText.trim() && e.key === "Enter") {
+            props.addPost();
+        }
+    }
 
-	return (
-		<div className={classes.postBlock}>
-			<Jumbotron >
-			<h3 className={classes.h3Style}>Posts</h3>
-				<div>
+    let onPostChange = () => {
+        let text = newPostElement.current?.value;
+        if (text) {
+            props.updateNewPostText(text);
+        }
+    }
+
+    return (
+        <div className={classes.postBlock}>
+            <Jumbotron>
+                <h3 className={classes.h3Style}>Posts</h3>
+                <div>
 					<textarea
-						ref={newPostElement}
-						value={props.newPostText}
-						onChange={onPostChange}
-						// onKeyPress={ onKeyPress }
-					/>
-				</div>
-				<div>
-					<Button variant="primary"
-						onClick={ onAddPost }>
-						Add Post
-					</Button>
+                        ref={newPostElement}
+                        value={props.newPostText}
+                        onChange={onPostChange}
+                        onKeyPress={onKeyPress}
+                    />
+                </div>
+                <div>
+                    <Button variant="primary"
+                            onClick={onAddPost}>
+                        Add Post
+                    </Button>
 
-				</div>
-			</Jumbotron>
+                </div>
+            </Jumbotron>
 
-			<div className={classes.posts}>
+            <div className={classes.posts}>
                 {postElements}
-			</div>
-		</div>
-	);
+            </div>
+        </div>
+    );
 };
 
 export default MyPosts;

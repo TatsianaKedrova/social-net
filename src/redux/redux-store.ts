@@ -8,15 +8,10 @@ let reducers = combineReducers({
 
 });
 
-declare global {
-    interface Window {
-        store: any
-    }
-}
-
 let store = createStore(reducers);
 
-console.log(store === window.store) ;
+// @ts-ignore
+window.store = store;
 
 
 export type AppRootType = ReturnType<typeof reducers>;

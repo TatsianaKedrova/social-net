@@ -1,14 +1,15 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import DialogItem from "./DialogItem";
 import classes from "./Dialogs.module.css";
 import Message from "./Message";
 import {DialogsPageType} from "../../redux/store";
-import {DialogsContainerConnectType} from "./DialogsContainer";
+
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
     updateNewMessageBody: (body: string) => void
     sendMessage: () => void
+    // onKeyPress: (e: KeyboardEvent<HTMLTextAreaElement>) => void
 
 }
 
@@ -26,7 +27,15 @@ const Dialogs = (props: DialogsPropsType) => {
     }
 
     let onSendMessageClick = () => {
-        props.sendMessage();
+        if(props.dialogsPage.newMessageBody.trim()) {
+            props.sendMessage();
+        }
+    }
+
+    let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if(props.dialogsPage.newMessageBody.trim() && e.key === "Enter") {
+            props.sendMessage();
+        }
     }
 
     return (
@@ -36,14 +45,18 @@ const Dialogs = (props: DialogsPropsType) => {
             </div>
 
             <div className={classes.messages}>
-                <div>{messagesElements}</div>
+
                 <div>
                     <div>
-                        <textarea value={newMessageBody} onChange={onNewMessageChange}
-                                  placeholder={"Enter your message"}> </textarea>
+                        <textarea
+                            value={newMessageBody}
+                            onChange={onNewMessageChange}
+                            onKeyPress={onKeyPress}
+                            placeholder={"Enter your message"}> </textarea>
                     </div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
+                        <div>{messagesElements}</div>
                     </div>
                 </div>
             </div>
