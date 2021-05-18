@@ -37,6 +37,7 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchF
 
     switch (action.type) {
         case SEND_MESSAGE:
+            let stateCopy = {...state};
             let body = state.newMessageBody;
             state.newMessageBody = '';
             state.messages.push({id: new Date().getTime(), message: body});

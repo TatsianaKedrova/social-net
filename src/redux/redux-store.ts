@@ -8,8 +8,18 @@ let reducers = combineReducers({
 
 });
 
+declare global {
+    interface Window {
+        store: any
+    }
+}
+
 let store = createStore(reducers);
 
-export type AppRootType = ReturnType<typeof reducers>
+console.log(store === window.store) ;
+
+
+export type AppRootType = ReturnType<typeof reducers>;
+export type AppDispatch = typeof store.dispatch
 
 export default store;

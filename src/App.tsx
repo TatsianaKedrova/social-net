@@ -11,13 +11,13 @@ import { StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
-export type AppType = {
+export type AppPropsType = {
 	/*state: RootStateType
 	dispatch: (action: DispatchFucntionType) => void*/
 	// store: StoreType
 }
 
-const App: React.FC<AppType> = (props) => {
+const App: React.FC<AppPropsType> = (props) => {
 
 	return (
 		<BrowserRouter>

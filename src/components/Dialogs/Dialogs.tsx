@@ -3,14 +3,14 @@ import DialogItem from "./DialogItem";
 import classes from "./Dialogs.module.css";
 import Message from "./Message";
 import {DialogsPageType} from "../../redux/store";
-
+import {DialogsContainerConnectType} from "./DialogsContainer";
 
 type DialogsPropsType = {
+    dialogsPage: DialogsPageType
     updateNewMessageBody: (body: string) => void
     sendMessage: () => void
-    dialogsPage: DialogsPageType
+
 }
-// UpdateMessageBodyType | SendMessageType
 
 const Dialogs = (props: DialogsPropsType) => {
     let state = props.dialogsPage;

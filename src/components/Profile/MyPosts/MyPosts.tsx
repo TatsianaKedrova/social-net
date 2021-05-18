@@ -6,12 +6,11 @@ import {Button, Jumbotron} from "react-bootstrap";
 
 
 export type MyPostsPropsType = {
-	updateNewPostText: (text: string) => void,
-	addPost: () => void,
 	posts: Array<PostType>,
 	newPostText: string,
+	updateNewPostText: (text: string) => void,
+	addPost: () => void,
 }
-
 // AddPostActionType | UpdatePostActionType
 
 const MyPosts = (props: MyPostsPropsType) => {
