@@ -1,9 +1,10 @@
 import React from "react";
+import s from './Users.module.css';
 
 const Users = () => {
     return (
         <div>
-            <h3>Users will be here</h3>
+            <p className={s.pStyle}>Users</p>
 
         </div>
     )
