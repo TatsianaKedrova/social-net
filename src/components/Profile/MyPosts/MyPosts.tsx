@@ -21,6 +21,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let onAddPost = () => {
+
     	if (props.newPostText.trim()) {
 			props.addPost();
 		}

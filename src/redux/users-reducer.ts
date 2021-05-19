@@ -13,6 +13,7 @@ export type SetUsersType = {
 
 export type SingleUserType = {
     id: number
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
@@ -28,16 +29,24 @@ export type UsersType = {
 
 let initialState = {
     users: [
-        /*{
+        {
             id: 1,
+            photoUrl: 'https://tse1.mm.bing.net/th?id=OIP.tH0HK6vs6urnkIxoTmR1WgAAAA&pid=Api/?',
             followed: true,
             fullName: "Tania",
             status: "My goal is at my hand!",
             location: {country: "Belarus", city: "Gomel"}
         },
-        {id: 2, followed: false, fullName: "Nadin", status: "I am queen", location: {country: "Egupt", city: "Cairo"}},
+        {
+            id: 2,
+            photoUrl: '',
+            followed: false,
+            fullName: "Nadin",
+            status: "I am queen",
+            location: {country: "Egupt", city: "Cairo"}},
         {
             id: 3,
+            photoUrl: '',
             followed: true,
             fullName: "Sveta",
             status: "I want to be happy",
@@ -45,6 +54,7 @@ let initialState = {
         },
         {
             id: 4,
+            photoUrl: '',
             followed: false,
             fullName: "Alessandro",
             status: "I am great football player!",
@@ -52,6 +62,7 @@ let initialState = {
         },
         {
             id: 5,
+            photoUrl: '',
             followed: true,
             fullName: "Francesco",
             status: "Handsome life!",
@@ -59,11 +70,12 @@ let initialState = {
         },
         {
             id: 6,
+            photoUrl: '',
             followed: false,
             fullName: "Pavel",
             status: "Telegram creator!",
             location: {country: "UAE", city: "Dubai"}
-        },*/
+        },
     ]
 };
 
