@@ -89,7 +89,7 @@ const usersReducer = (state: UsersType = initialState, action: UserReducerDispat
                 // users: [...state.users]
                 // let newState = stateCopy.users.map((e) => e.id === action.userId ? !e.followed : e);
                 // this is one variant
-                users: state.users.map(u => u.id !== action.userId ? {...u, followed: !u.followed} : u)
+                users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
             };
         case SET_USERS:
             return {

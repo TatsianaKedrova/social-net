@@ -14,13 +14,14 @@ type DialogsPropsType = {
 }
 
 const Dialogs = (props: DialogsPropsType) => {
-    let state = props.dialogsPage;
 
-    let dialogsElements = state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>);
+    const {dialogs, messages, newMessageBody} = props.dialogsPage;
 
-    let messagesElements = state.messages.map(m => <Message key={m.id} message={m.message}/>);
-    let newMessageBody = state.newMessageBody;
+    let dialogsElements = dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>);
 
+    let messagesElements = messages.map(m => <Message key={m.id} message={m.message}/>);
+
+    console.log(messages)
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value;
         props.updateNewMessageBody(body);

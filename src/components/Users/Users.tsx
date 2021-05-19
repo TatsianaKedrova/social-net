@@ -8,35 +8,43 @@ export type UsersPropsType = {
     setUsers: (users: Array<SingleUserType>) => void
 }
 
-const Users: React.FC<UsersPropsType> = (props) => {
+const Users = ({ users, followUnfollow, setUsers }: UsersPropsType) => {
 
-    let pageUsers = props.users.map(u => {
+    let pageUsers = users.map(u => (
         <div key={u.id} className={s.userBox}>
-                <span>
-                    <img src={u.photoUrl}
-                         alt={"avatar"}/>
-                    <button>{u.followed ? "Follow" : "Unfollow"}</button>
-                </span>
+                        <span>
+                            <div><img src={u.photoUrl}
+                                      className={s.photo}
+                                      alt={"avatar"}/></div>
+                            <button
+                                onClick={() => {followUnfollow(u.id)}}
+                            >{u.followed ? "Follow" : "Unfollow"}</button>
+                        </span>
             <span>
-               <span>
-                   <div>{u.fullName}</div>
-                   <div>{u.status}</div>
-               </span>
-               <span>
-                   <div>{`${u.location.country},`}</div>
-                   <div>{u.location.city}</div>
-               </span>
-            </span>
+                           <span>
+                               <div>{u.fullName}</div>
+                               <div>{u.status}</div>
+                           </span>
+                           <span>
+                               <div>{`${u.location.country},`}</div>
+                               <div>{u.location.city}</div>
+                           </span>
+                        </span>
         </div>
-    })
+    ))
 
     return (
-        <div className={s.usersContainer}>
+        <div>
             {pageUsers}
-
         </div>
     )
 }
-
 export default Users;
+/*<div className={s.usersContainer}>
+    {pageUsers}
+
+</div>*/
+
+
+
 
