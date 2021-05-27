@@ -42,8 +42,7 @@ const App: React.FC<AppPropsType> = () => {
 							   render = { () => <Music /> } />
 						<Route path="/settings"
 							   render = { () => <Settings /> } />
-						<Route path="*"
-							   render={ () => <div>404</div>} />
+
 					</Switch>
 				</div>
 			</div>

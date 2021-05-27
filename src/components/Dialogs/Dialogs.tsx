@@ -9,7 +9,6 @@ type DialogsPropsType = {
     dialogsPage: DialogsPageType
     updateNewMessageBody: (body: string) => void
     sendMessage: () => void
-    // onKeyPress: (e: KeyboardEvent<HTMLTextAreaElement>) => void
 
 }
 
