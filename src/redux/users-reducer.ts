@@ -12,6 +12,17 @@ export type SetUsersType = {
 }
 
 export type SingleUserType = {
+    name: string,
+    id: number,
+    uniqueUrlName: null,
+    photos: {
+        small: null,
+        large: null
+    },
+    status: null,
+    followed: boolean
+}
+/*export type SingleUserType = {
     id: number
     photoUrl: string
     followed: boolean
@@ -21,7 +32,7 @@ export type SingleUserType = {
         country: string,
         city: string
     }
-}
+}*/
 
 export type UsersType = {
     users: Array<SingleUserType>

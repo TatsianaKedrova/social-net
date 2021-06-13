@@ -13,14 +13,15 @@ const Users = ({users, followUnfollow, setUsers}: UsersPropsType) => {
 
     let getUsers = () => {
         if (users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            axios.get<{items: Array<SingleUserType>, totalCount: number,
+                error: null}>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
                 setUsers(response.data.items);
             })
         }
     }
 
-
-    !users.length && setUsers([
+    // !users.length && setUsers([]);
+        /*[
         {
             id: 1,
             photoUrl: 'https://tse1.mm.bing.net/th?id=OIP.tH0HK6vs6urnkIxoTmR1WgAAAA&pid=Api/?',
@@ -69,11 +70,11 @@ const Users = ({users, followUnfollow, setUsers}: UsersPropsType) => {
             status: "Telegram creator!",
             location: {country: "UAE", city: "Dubai"}
         },
-    ]);
+    ]*/
 
     return (
         <div>
-            <button onClick={getUsers}>Get Users</button>
+            <button onClick={()=> getUsers}>Get Users</button>
             {users.map(u => (
                 <div key={u.id} className={s.userBox}>
                         <span>
