@@ -74,11 +74,11 @@ const Users = ({users, followUnfollow, setUsers}: UsersPropsType) => {
 
     return (
         <div>
-            <button onClick={()=> getUsers}>Get Users</button>
+            <button onClick={getUsers}>Get Users</button>
             {users.map(u => (
                 <div key={u.id} className={s.userBox}>
                         <span>
-                            <div><img src={u.photoUrl}
+                            <div><img src={"https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"}
                                       className={s.photo}
                                       alt={"avatar"}/></div>
                             <button
@@ -89,13 +89,13 @@ const Users = ({users, followUnfollow, setUsers}: UsersPropsType) => {
                         </span>
                     <span>
                            <span>
-                               <div>{u.fullName}</div>
+                               <div>{u.name}</div>
                                <div>{u.status}</div>
                            </span>
-                           <span>
+                           {/*<span>
                                <div>{`${u.location.country},`}</div>
                                <div>{u.location.city}</div>
-                           </span>
+                           </span>*/}
                         </span>
                 </div>
             ))
@@ -105,6 +105,7 @@ const Users = ({users, followUnfollow, setUsers}: UsersPropsType) => {
     )
 }
 
+console.dir(Object);
 export default Users;
 
 
