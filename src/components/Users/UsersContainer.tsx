@@ -1,5 +1,11 @@
 import {connect, ConnectedProps} from "react-redux";
-import {followUnfollowAC, setCurrrentPageAC, setUsersAC, SingleUserType} from "../../redux/users-reducer";
+import {
+    followUnfollowAC,
+    setCurrrentPageAC,
+    setUsersAC,
+    setUsersTotalCountAC,
+    SingleUserType
+} from "../../redux/users-reducer";
 import {AppDispatch, AppRootType} from "../../redux/redux-store";
 import UsersC from "./UsersC";
 import Users from "./Users";
@@ -22,6 +28,9 @@ let mapDispatchToProps = (dispatch: AppDispatch ) => {
         },
         setUsers: (users: Array<SingleUserType>) => {
             dispatch(setUsersAC(users));
+        },
+        setTotalUsersCount: (count: number) => {
+            dispatch(setUsersTotalCountAC(count))
         },
         setCurrentPage: (page: number) => {
             dispatch(setCurrrentPageAC(page))

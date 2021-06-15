@@ -11,23 +11,22 @@ export type UsersPropsType = {
     currentPage: number
     followUnfollow: (userId: number) => void
     setUsers: (users: Array<SingleUserType>) => void
+    setTotalUsersCount: (count: number) => void
     setCurrentPage: (page: number) => void
 }
 
 class UsersC extends React.Component<UsersPropsType> {
-    /*constructor(props: UsersPropsType) {
-        super(props);
-        }*/
 
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
                 this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.count);
             }
         )}
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
                 this.props.setUsers(response.data.items);
             }
         )
@@ -70,10 +69,6 @@ class UsersC extends React.Component<UsersPropsType> {
                                <div>{u.name}</div>
                                <div>{u.status}</div>
                            </span>
-                            {/*<span>
-                               <div>{`${u.location.country},`}</div>
-                               <div>{u.location.city}</div>
-                           </span>*/}
                         </span>
                     </div>
                 ))

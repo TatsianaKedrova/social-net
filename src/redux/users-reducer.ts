@@ -1,5 +1,6 @@
 const TOGGLE_FOLLOW_UNFOLLOW = 'TOGGLE_FOLLOW_UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_TOTAL_USERS_COUNT = 'TOTAL_USERS_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 export type FollowUnfollowToggleType = {
@@ -10,6 +11,11 @@ export type FollowUnfollowToggleType = {
 export type SetUsersType = {
     type: typeof SET_USERS,
     users: Array<SingleUserType>
+}
+
+export type SetTotalUsersCountType = {
+    type: typeof SET_TOTAL_USERS_COUNT,
+    count: number
 }
 
 export type SetCurrentPageType = {
@@ -28,17 +34,6 @@ export type SingleUserType = {
     status: null,
     followed: boolean
 }
-/*export type SingleUserType = {
-    id: number
-    photoUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        country: string,
-        city: string
-    }
-}*/
 
 export type UsersType = {
     users: Array<SingleUserType>
@@ -47,27 +42,30 @@ export type UsersType = {
 let initialState = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 19,
-    currentPage: 2
+    totalUsersCount: 0,
+    currentPage: 1
 };
 
-export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetCurrentPageType;
+export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType;
 
 const usersReducer = (state: UsersType = initialState, action: UserReducerDispatchType): any => {
     switch (action.type) {
         case TOGGLE_FOLLOW_UNFOLLOW:
             return {
                 ...state,
-                // users: [...state.users]
-                // let newState = stateCopy.users.map((e) => e.id === action.userId ? !e.followed : e);
-                // this is one variant
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
             };
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
             };
+        case SET_TOTAL_USERS_COUNT: {
+            return {
+                ...state,
+                totalUsersCount: action.count
+            }
+        }
         case SET_CURRENT_PAGE:
             return {
                 ...state,
@@ -88,6 +86,12 @@ export const setUsersAC = (users: Array<SingleUserType>): SetUsersType => ({
     type: SET_USERS,
     users
 });
+
+export const setUsersTotalCountAC = (count: number):  SetTotalUsersCountType => ({
+    type: SET_TOTAL_USERS_COUNT,
+    count
+})
+
 export const setCurrrentPageAC = (page: number): SetCurrentPageType => ({
     type: SET_CURRENT_PAGE,
     page
