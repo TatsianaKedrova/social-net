@@ -15,14 +15,13 @@ type UserPresentationalPropsType = {
 export const UserPresentational: React.FC<UserPresentationalPropsType> = ({ users,pageSize,totalUsersCount, currentPage, followUnfollow, onPageChanged }) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
-    let pages: number[] = [];
+    let pages = [];
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    console.log(pages);
+    /*console.log(pages);
     console.log(pagesCount);
-    console.log(totalUsersCount);
-    console.log(users);
+    console.log(totalUsersCount);*/
     return (
         <div>
             <div>

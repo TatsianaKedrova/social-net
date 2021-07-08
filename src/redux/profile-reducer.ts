@@ -1,4 +1,18 @@
-import {DispatchFucntionType, PostType, ProfilePageType} from "./store";
+import {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
+
+export type PostType = {
+    id: number,
+    message: string,
+    likesCount: number
+};
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+
+export type DispatchFucntionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
+
 
 export type AddPostActionType = {
     type: typeof ADD_POST
@@ -11,10 +25,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 let initialState = {
-    posts: [
-        /*{id: 1, message: "How is your successful life?", likesCount: 12},
-        {id: 2, message: "Everything needs care and attention, remember it!", likesCount: 15},*/
-    ],
+    posts: [],
     newPostText: ''
 }
 
@@ -33,9 +44,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchF
             message: state.newPostText,
             likesCount: 0
         };
-            // if (stateCopy.newPostText.trim()) {
-            // }
-
             return {
             ...state,
             posts: [...state.posts, newPost],

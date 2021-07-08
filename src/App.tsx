@@ -9,7 +9,6 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ExampleUseState from "./ExampleUseState";
 
 
 export type AppPropsType = {
@@ -25,7 +24,6 @@ const App: React.FC<AppPropsType> = () => {
 			<div className="app-wrapper">
 				<Header />
 				<Navbar />
-				{/*<ExampleUseState />*/}
 
 				<div className="app-wrapper-content">
 					<Switch>

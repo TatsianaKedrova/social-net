@@ -1,7 +1,7 @@
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import {connect, ConnectedProps} from "react-redux";
-import {AppDispatch, AppRootType} from "../../redux/redux-store";
+import {connect} from "react-redux";
+import {AppDispatch, AppRootType} from "../../redux/store-redux";
 
 
 let mapStateToProps = (state: AppRootType) => {
@@ -22,7 +22,6 @@ let mapDispatchToProps = (dispatch: AppDispatch) => {
 }
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-export type DialogsContainerConnectType = ConnectedProps<typeof DialogsContainer>
-
+// export type DialogsContainerConnectType = ConnectedProps<typeof DialogsContainer>
 
 export default DialogsContainer;

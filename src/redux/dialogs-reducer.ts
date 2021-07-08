@@ -10,7 +10,6 @@ export type UpdateMessageBodyType = {
 
 export type SendMessageType = {
     type: typeof SEND_MESSAGE
-    // newMessage: string
 }
 
 let initialState = {

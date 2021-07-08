@@ -33,7 +33,6 @@ export type DialogsPageType = {
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    // sidebar: SidebarType
 }
 
 export type DispatchFucntionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
@@ -50,10 +49,7 @@ export type StoreType = {
 const store: StoreType = {
     _state: {
         profilePage: {
-            posts: [
-                /*{id: 1, message: "How is your successful life?", likesCount: 12},
-                {id: 2, message: "Everything needs care and attention, remember it!", likesCount: 15},*/
-            ],
+            posts: [],
             newPostText: ''
         },
         dialogsPage: {

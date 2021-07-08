@@ -17,9 +17,12 @@ export type UsersPropsType = {
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                console.log(response)
                 this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.count);
+                this.props.setTotalUsersCount(response.data.totalCount);
+
             }
         )}
 
@@ -31,6 +34,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
         )
     }
     render() {
+
         return <UserPresentational users={this.props.users} pageSize={this.props.pageSize} totalUsersCount={this.props.totalUsersCount} currentPage={this.props.currentPage} followUnfollow={this.props.followUnfollow} onPageChanged={this.onPageChanged} />
     }
 }

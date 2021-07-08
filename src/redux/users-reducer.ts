@@ -26,12 +26,12 @@ export type SetCurrentPageType = {
 export type SingleUserType = {
     name: string,
     id: number,
-    uniqueUrlName: null,
+    // uniqueUrlName: null,
     photos: {
         small: null | string,
         large: null | string
     },
-    status: null,
+    status?: null,
     followed: boolean
 }
 
@@ -40,15 +40,16 @@ export type UsersType = {
 }
 
 let initialState = {
-    users: [],
+    users: [] as Array<SingleUserType>,
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1
 };
+export type InitStateType = typeof initialState;
 
 export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType;
 
-const usersReducer = (state: UsersType = initialState, action: UserReducerDispatchType): any => {
+const usersReducer = (state = initialState, action: UserReducerDispatchType): InitStateType => {
     switch (action.type) {
         case TOGGLE_FOLLOW_UNFOLLOW:
             return {

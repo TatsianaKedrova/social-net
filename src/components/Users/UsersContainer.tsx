@@ -1,4 +1,4 @@
-import {connect, ConnectedProps} from "react-redux";
+import {connect} from "react-redux";
 import {
     followUnfollowAC,
     setCurrentPageAC,
@@ -6,7 +6,7 @@ import {
     setUsersTotalCountAC,
     SingleUserType
 } from "../../redux/users-reducer";
-import {AppDispatch, AppRootType} from "../../redux/redux-store";
+import {AppDispatch, AppRootType} from "../../redux/store-redux";
 import UsersAPIComponent from "./UsersAPIComponent";
 
 let mapStateToProps = (state: AppRootType) => {
