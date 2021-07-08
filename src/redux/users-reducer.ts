@@ -41,7 +41,7 @@ export type UsersType = {
 
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1
 };
@@ -92,7 +92,7 @@ export const setUsersTotalCountAC = (count: number):  SetTotalUsersCountType => 
     count
 })
 
-export const setCurrrentPageAC = (page: number): SetCurrentPageType => ({
+export const setCurrentPageAC = (page: number): SetCurrentPageType => ({
     type: SET_CURRENT_PAGE,
     page
 })

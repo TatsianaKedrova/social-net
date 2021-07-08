@@ -1,15 +1,13 @@
 import {connect, ConnectedProps} from "react-redux";
 import {
     followUnfollowAC,
-    setCurrrentPageAC,
+    setCurrentPageAC,
     setUsersAC,
     setUsersTotalCountAC,
     SingleUserType
 } from "../../redux/users-reducer";
 import {AppDispatch, AppRootType} from "../../redux/redux-store";
-import UsersC from "./UsersC";
-import Users from "./Users";
-import {stat} from "fs";
+import UsersAPIComponent from "./UsersAPIComponent";
 
 let mapStateToProps = (state: AppRootType) => {
 
@@ -33,13 +31,13 @@ let mapDispatchToProps = (dispatch: AppDispatch ) => {
             dispatch(setUsersTotalCountAC(count))
         },
         setCurrentPage: (page: number) => {
-            dispatch(setCurrrentPageAC(page))
+            dispatch(setCurrentPageAC(page))
         }
     }
 }
 
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
 
-type ConnectedPropsType = ConnectedProps<typeof UsersContainer>
+// type ConnectedPropsType = ConnectedProps<typeof UsersContainer>
 export default UsersContainer;

@@ -25,7 +25,7 @@ const App: React.FC<AppPropsType> = () => {
 			<div className="app-wrapper">
 				<Header />
 				<Navbar />
-				<ExampleUseState />
+				{/*<ExampleUseState />*/}
 
 				<div className="app-wrapper-content">
 					<Switch>
