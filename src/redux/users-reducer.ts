@@ -35,15 +35,12 @@ export type SingleUserType = {
     followed: boolean
 }
 
-export type UsersType = {
-    users: Array<SingleUserType>
-}
-
 let initialState = {
     users: [] as Array<SingleUserType>,
     pageSize: 10,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 };
 export type InitStateType = typeof initialState;
 

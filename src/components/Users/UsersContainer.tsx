@@ -10,12 +10,14 @@ import {AppDispatch, AppRootType} from "../../redux/store-redux";
 import React from "react";
 import axios from "axios";
 import {UserPresentational} from "./UserPresentational";
+import Loader from "react-loader-spinner";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
     followUnfollow: (userId: number) => void
     setUsers: (users: Array<SingleUserType>) => void
     setTotalUsersCount: (count: number) => void
@@ -32,7 +34,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                     this.props.setTotalUsersCount(response.data.totalCount);
 
                 }
-            )}
+            )
+    }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
@@ -41,9 +44,22 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
             }
         )
     }
+
     render() {
 
-        return <UserPresentational users={this.props.users} pageSize={this.props.pageSize} totalUsersCount={this.props.totalUsersCount} currentPage={this.props.currentPage} followUnfollow={this.props.followUnfollow} onPageChanged={this.onPageChanged} />
+        return <>
+            {this.props.isFetching ?
+                <Loader type="Hearts" color="#fad2d8" height={80} width={80} />
+                : null}
+            <UserPresentational
+                users={this.props.users}
+                pageSize={this.props.pageSize}
+                totalUsersCount={this.props.totalUsersCount}
+                currentPage={this.props.currentPage}
+                followUnfollow={this.props.followUnfollow}
+                onPageChanged={this.onPageChanged}/>
+        </>
+
     }
 }
 
@@ -53,11 +69,12 @@ let mapStateToProps = (state: AppRootType) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 
-let mapDispatchToProps = (dispatch: AppDispatch ) => {
+let mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         followUnfollow: (userId: number) => {
             dispatch(followUnfollowAC(userId));
