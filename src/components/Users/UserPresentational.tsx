@@ -21,8 +21,8 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({ user
     }
 
     return (
-        <div>
-            <div>
+        <div className={s.userBox}>
+
                 {pages.map(page => {
                     return <span key={v1()}
                                  className={currentPage === page ? s.selectedPage : ""}
@@ -30,9 +30,8 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({ user
                     >{page}</span>
                 })}
 
-            </div>
             {users.map(u => (
-                <div key={u.id} className={s.userBox}>
+                <div key={u.id}>
                         <span>
                             <div><img
                                 src={u.photos.small != null ? u.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"}

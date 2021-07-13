@@ -4,13 +4,13 @@ import {
     setCurrentPageAC,
     setUsersAC,
     setUsersTotalCountAC,
-    SingleUserType
+    SingleUserType, toggleIsLoadingAC
 } from "../../redux/users-reducer";
 import {AppDispatch, AppRootType} from "../../redux/store-redux";
 import React from "react";
 import axios from "axios";
 import {UserPresentational} from "./UserPresentational";
-import Loader from "react-loader-spinner";
+import Preloader from "../common/Preloader/Preloader";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
@@ -22,13 +22,16 @@ export type UsersPropsType = {
     setUsers: (users: Array<SingleUserType>) => void
     setTotalUsersCount: (count: number) => void
     setCurrentPage: (page: number) => void
+    toggleIsLoading: (isFetching: boolean) => void
 }
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
+        this.props.toggleIsLoading(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
+                    this.props.toggleIsLoading(false);
                     console.log(response)
                     this.props.setUsers(response.data.items);
                     this.props.setTotalUsersCount(response.data.totalCount);
@@ -38,7 +41,10 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        this.props.toggleIsLoading(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.toggleIsLoading(false);
                 this.props.setUsers(response.data.items);
             }
         )
@@ -48,8 +54,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
         return <>
             {this.props.isFetching ?
-                <Loader type="Hearts" color="#fad2d8" height={80} width={80} />
-                : null}
+                <Preloader /> : null}
             <UserPresentational
                 users={this.props.users}
                 pageSize={this.props.pageSize}
@@ -86,6 +91,9 @@ let mapDispatchToProps = (dispatch: AppDispatch) => {
         },
         setCurrentPage: (page: number) => {
             dispatch(setCurrentPageAC(page))
+        },
+        toggleIsLoading: (isFetching: boolean) => {
+            dispatch(toggleIsLoadingAC(isFetching))
         }
     }
 }

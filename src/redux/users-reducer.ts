@@ -15,7 +15,7 @@ let initialState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isLoading: false
+    isLoading: true
 };
 export type InitUsersStateType = typeof initialState;
 
@@ -44,7 +44,7 @@ const usersReducer = (state = initialState, action: UserReducerDispatchType): In
             }
         case "IS_LOADING":
             return {...state,
-            isLoading: true
+            isLoading: action.isFetching
             }
         default:
             return state;
@@ -55,14 +55,14 @@ export const followUnfollowAC = (userId: number) => ({type: 'TOGGLE_FOLLOW_UNFOL
 export const setUsersAC = (users: Array<SingleUserType>) => ({type: 'SET_USERS', users} as const);
 export const setUsersTotalCountAC = (count: number) => ({type: 'TOTAL_USERS_COUNT', count} as const)
 export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
-export const isLoadingAC = () => ({ type: 'IS_LOADING',  } as const )
+export const toggleIsLoadingAC = (isFetching: boolean) => ({ type: 'IS_LOADING', isFetching } as const )
 
 //types of AC
 export type FollowUnfollowToggleType = ReturnType<typeof followUnfollowAC>
 export type SetUsersType = ReturnType<typeof setUsersAC>
 export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCountAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
-export type IsLoadingType = ReturnType<typeof isLoadingAC>
+export type IsLoadingType = ReturnType<typeof toggleIsLoadingAC>
 
 export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType;
 
