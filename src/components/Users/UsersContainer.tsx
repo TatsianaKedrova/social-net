@@ -78,29 +78,9 @@ let mapStateToProps = (state: AppRootType) => {
     }
 }
 
-/*let mapDispatchToProps = (dispatch: AppDispatch) => {
-    return {
-        followUnfollow: (userId: number) => {
-            dispatch(followUnfollowAC(userId));
-        },
-        setUsers: (users: Array<SingleUserType>) => {
-            dispatch(setUsersAC(users));
-        },
-        setTotalUsersCount: (count: number) => {
-            dispatch(setUsersTotalCountAC(count))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        toggleIsLoading: (isFetching: boolean) => {
-            dispatch(toggleIsLoadingAC(isFetching))
-        }
-    }
-}*/
-
 const UsersContainer = connect(mapStateToProps,
     {
-        followUnfollow,
+        followUnfollow: followUnfollow,
         setUsers,
         setUsersTotalCount,
         setCurrentPage,

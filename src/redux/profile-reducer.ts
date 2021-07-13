@@ -44,7 +44,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchF
 
 //action creators
 export const addPostAC = () => ({type: 'ADD-POST'} as const );
-export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const );
+export const updateNewPostTextAC = (newText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText} as const );
 
 //types of AC
 export type AddPostActionType = ReturnType<typeof addPostAC>

@@ -1,4 +1,4 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 import {PostType} from "../../../redux/store";
@@ -11,7 +11,6 @@ export type MyPostsPropsType = {
     updateNewPostText: (text: string) => void,
     addPost: () => void,
 }
-// AddPostActionType | UpdatePostActionType
 
 const MyPosts = (props: MyPostsPropsType) => {
     let postElements =
@@ -29,11 +28,15 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     let onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (props.newPostText.trim() && e.key === "Enter") {
+            e.preventDefault();
             props.addPost();
+
         }
     }
 
-    let onPostChange = () => {
+    let onPostChange = (e:ChangeEvent) => {
+        debugger;
+        e.preventDefault();
         let text = newPostElement.current?.value;
         if (text) {
             props.updateNewPostText(text);
@@ -46,10 +49,11 @@ const MyPosts = (props: MyPostsPropsType) => {
                 <h3 className={classes.h3Style}>Posts</h3>
                 <div>
 					<textarea
+                        className={classes.textareaStyle}
                         ref={newPostElement}
                         value={props.newPostText}
                         onChange={onPostChange}
-                        onKeyPress={onKeyPress}
+                        onKeyDown={onKeyPress}
                     />
                 </div>
                 <div>
