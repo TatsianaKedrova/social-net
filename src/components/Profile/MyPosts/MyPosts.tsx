@@ -36,9 +36,9 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     let onPostChange = (e:ChangeEvent) => {
         debugger;
-        e.preventDefault();
+
         let text = newPostElement.current?.value;
-        if (text) {
+        if (text !== undefined) {
             props.updateNewPostText(text);
         }
     }
