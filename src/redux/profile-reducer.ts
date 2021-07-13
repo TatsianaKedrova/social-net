@@ -11,34 +11,21 @@ export type ProfilePageType = {
     newPostText: string
 }
 
-export type DispatchFunctionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
-
-
-export type AddPostActionType = {
-    type: typeof ADD_POST
-}
-export type UpdatePostActionType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
 let initialState = {
     posts: [],
     newPostText: ''
 }
 
+//reducer
 const profileReducer = (state: ProfilePageType = initialState, action: DispatchFunctionType) : ProfilePageType => {
-
     switch (action.type) {
-        case UPDATE_NEW_POST_TEXT:
+        case 'UPDATE-NEW-POST-TEXT':
             return {
                 ...state,
                 newPostText: action.newText
             };
 
-        case ADD_POST:
+        case 'ADD-POST':
         let newPost: PostType = {
             id: new Date().getTime(),
             message: state.newPostText,
@@ -55,10 +42,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchF
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
-export const updateNewPostTextActionCreator = (text: string): UpdatePostActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-});
+//action creators
+export const addPostAC = () => ({type: 'ADD-POST'} as const );
+export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const );
+
+//types of AC
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdatePostActionType = ReturnType<typeof updateNewPostTextAC>
+export type DispatchFunctionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
 
 export default profileReducer;

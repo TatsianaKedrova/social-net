@@ -17,9 +17,9 @@ let initialState = {
     currentPage: 1,
     isLoading: false
 };
-export type InitStateType = typeof initialState;
+export type InitUsersStateType = typeof initialState;
 
-const usersReducer = (state = initialState, action: UserReducerDispatchType): InitStateType => {
+const usersReducer = (state = initialState, action: UserReducerDispatchType): InitUsersStateType => {
     switch (action.type) {
         case 'TOGGLE_FOLLOW_UNFOLLOW':
             return {

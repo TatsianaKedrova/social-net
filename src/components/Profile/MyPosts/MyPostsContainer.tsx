@@ -1,4 +1,7 @@
-import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/profile-reducer";
+import {
+	addPostAC,
+	updateNewPostTextAC,
+} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import MyPosts from "./MyPosts";
 import {AppDispatch, AppRootType} from "../../../redux/store-redux";
@@ -14,11 +17,11 @@ import {AppDispatch, AppRootType} from "../../../redux/store-redux";
 	let mapDispatchToProps = (dispatch: AppDispatch) => {
 		return {
 			updateNewPostText: (text: string) => {
-				let action = updateNewPostTextActionCreator(text);
+				let action = updateNewPostTextAC(text);
 				dispatch(action);
 			},
 			addPost: () => {
-				dispatch(addPostActionCreator());
+				dispatch(addPostAC());
 			}
 		}
 	}
