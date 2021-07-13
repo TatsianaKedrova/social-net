@@ -1,4 +1,4 @@
-import React, {MouseEvent} from "react";
+import React from "react";
 import {v1} from "uuid";
 import s from "./Users.module.css";
 import {SingleUserType} from "../../redux/users-reducer";
@@ -19,16 +19,14 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({ user
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    /*console.log(pages);
-    console.log(pagesCount);
-    console.log(totalUsersCount);*/
+
     return (
         <div>
             <div>
                 {pages.map(page => {
                     return <span key={v1()}
                                  className={currentPage === page ? s.selectedPage : ""}
-                                 onClick={(e: MouseEvent<HTMLSpanElement>) => onPageChanged(page)}
+                                 onClick={() => onPageChanged(page)}
                     >{page}</span>
                 })}
 

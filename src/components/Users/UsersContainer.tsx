@@ -32,7 +32,6 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                     console.log(response)
                     this.props.setUsers(response.data.items);
                     this.props.setTotalUsersCount(response.data.totalCount);
-
                 }
             )
     }
@@ -70,7 +69,7 @@ let mapStateToProps = (state: AppRootType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isLoading
     }
 }
 
@@ -90,7 +89,6 @@ let mapDispatchToProps = (dispatch: AppDispatch) => {
         }
     }
 }
-
 
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
 

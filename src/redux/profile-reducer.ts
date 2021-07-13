@@ -11,7 +11,7 @@ export type ProfilePageType = {
     newPostText: string
 }
 
-export type DispatchFucntionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
+export type DispatchFunctionType = AddPostActionType | UpdatePostActionType | UpdateMessageBodyType | SendMessageType
 
 
 export type AddPostActionType = {
@@ -29,7 +29,7 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: DispatchFucntionType) : ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: DispatchFunctionType) : ProfilePageType => {
 
     switch (action.type) {
         case UPDATE_NEW_POST_TEXT:

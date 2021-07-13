@@ -1,15 +1,19 @@
-import {DialogsPageType, DispatchFucntionType} from "./store";
+import {DispatchFunctionType} from "./profile-reducer";
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-const SEND_MESSAGE = 'SEND_MESSAGE';
-
-export type UpdateMessageBodyType = {
-    type: typeof UPDATE_NEW_MESSAGE_BODY
-    body: string
+export type DialogType = {
+    id: number,
+    name: string
 }
 
-export type SendMessageType = {
-    type: typeof SEND_MESSAGE
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type DialogsPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageBody: string
 }
 
 let initialState = {
@@ -32,11 +36,11 @@ let initialState = {
     newMessageBody: '',
 };
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchFucntionType) : DialogsPageType=> {
+const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchFunctionType) : DialogsPageType=> {
 
 
     switch (action.type) {
-        case SEND_MESSAGE:
+        case 'SEND_MESSAGE':
             let body = state.newMessageBody;
             return {
                 ...state,
@@ -45,7 +49,7 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchF
 
             };
 
-        case UPDATE_NEW_MESSAGE_BODY:
+        case 'UPDATE_NEW_MESSAGE_BODY':
             return {
                 ...state,
                 newMessageBody: action.body
@@ -55,14 +59,12 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchF
     }
 }
 
-export const updateNewMessageBodyActionCreator = (updatedMessage: string): UpdateMessageBodyType => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: updatedMessage
-});
+//action creators
+export const updateNewMessageBodyAC = (updatedMessage: string) => ({type: 'UPDATE_NEW_MESSAGE_BODY', body: updatedMessage} as const);
+export const sendMessageAC = () => ({type: 'SEND_MESSAGE'} as const);
 
-export const sendMessageActionCreator = (): SendMessageType => ({
-    type: SEND_MESSAGE
-
-});
+//types of AC
+export type UpdateMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
+export type SendMessageType = ReturnType<typeof sendMessageAC>
 
 export default dialogsReducer;
