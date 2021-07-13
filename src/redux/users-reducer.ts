@@ -3,30 +3,31 @@ const SET_USERS = 'SET_USERS';
 const SET_TOTAL_USERS_COUNT = 'TOTAL_USERS_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
+/*
 export type FollowUnfollowToggleType = {
     type: typeof TOGGLE_FOLLOW_UNFOLLOW
     userId: number
-}
+}*/
 
-export type SetUsersType = {
+/*export type SetUsersType = {
     type: typeof SET_USERS,
     users: Array<SingleUserType>
-}
+}*/
 
-export type SetTotalUsersCountType = {
+/*export type SetTotalUsersCountType = {
     type: typeof SET_TOTAL_USERS_COUNT,
     count: number
-}
+}*/
 
-export type SetCurrentPageType = {
+/*export type SetCurrentPageType = {
     type: typeof SET_CURRENT_PAGE,
     page: number
-}
+}*/
 
 export type SingleUserType = {
     name: string,
     id: number,
-    // uniqueUrlName: null,
+    uniqueUrlName: null | string,
     photos: {
         small: null | string,
         large: null | string
@@ -44,55 +45,50 @@ let initialState = {
 };
 export type InitStateType = typeof initialState;
 
-export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType;
-
 const usersReducer = (state = initialState, action: UserReducerDispatchType): InitStateType => {
     switch (action.type) {
-        case TOGGLE_FOLLOW_UNFOLLOW:
+        case 'TOGGLE_FOLLOW_UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
             };
-        case SET_USERS:
+        case 'SET_USERS':
             return {
                 ...state,
                 users: action.users
             };
-        case SET_TOTAL_USERS_COUNT: {
+        case 'TOTAL_USERS_COUNT': {
             return {
                 ...state,
                 totalUsersCount: action.count
             }
         }
-        case SET_CURRENT_PAGE:
+        case 'SET_CURRENT_PAGE':
             return {
                 ...state,
                 currentPage: action.page
             }
-
+        case "IS_LOADING":
+            return {...state}
         default:
             return state;
     }
 }
 
-export const followUnfollowAC = (userId: number): FollowUnfollowToggleType => ({
-    type: TOGGLE_FOLLOW_UNFOLLOW,
-    userId
-});
+export const followUnfollowAC = (userId: number) => ({type: 'TOGGLE_FOLLOW_UNFOLLOW', userId} as const);
+export const setUsersAC = (users: Array<SingleUserType>) => ({type: 'SET_USERS', users} as const);
+export const setUsersTotalCountAC = (count: number) => ({type: 'TOTAL_USERS_COUNT', count} as const)
+export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
+export const isLodingAC = () => ({ type: 'IS_LOADING',  } as const )
 
-export const setUsersAC = (users: Array<SingleUserType>): SetUsersType => ({
-    type: SET_USERS,
-    users
-});
 
-export const setUsersTotalCountAC = (count: number):  SetTotalUsersCountType => ({
-    type: SET_TOTAL_USERS_COUNT,
-    count
-})
+export type FollowUnfollowToggleType = ReturnType<typeof followUnfollowAC>
+export type SetUsersType = ReturnType<typeof setUsersAC>
+export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCountAC>
+export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
+export type IsLoadingType = ReturnType<typeof isLodingAC>
 
-export const setCurrentPageAC = (page: number): SetCurrentPageType => ({
-    type: SET_CURRENT_PAGE,
-    page
-})
+export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType;
+
 
 export default usersReducer;
