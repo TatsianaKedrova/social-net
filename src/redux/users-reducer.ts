@@ -57,6 +57,7 @@ export const setUsersTotalCountAC = (count: number) => ({type: 'TOTAL_USERS_COUN
 export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
 export const toggleIsLoadingAC = (isFetching: boolean) => ({ type: 'IS_LOADING', isFetching } as const )
 
+
 //types of AC
 export type FollowUnfollowToggleType = ReturnType<typeof followUnfollowAC>
 export type SetUsersType = ReturnType<typeof setUsersAC>

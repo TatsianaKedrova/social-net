@@ -98,7 +98,14 @@ let mapDispatchToProps = (dispatch: AppDispatch) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps,
+    {
+        followUnfollow: followUnfollowAC,
+        setUsers: setUsersAC,
+        setTotalUsersCount: setUsersTotalCountAC,
+        setCurrentPage: setCurrentPageAC,
+        toggleIsLoading: toggleIsLoadingAC
+    })(UsersAPIComponent);
 
 // type ConnectedPropsType = ConnectedProps<typeof UsersContainer>
 export default UsersContainer;
