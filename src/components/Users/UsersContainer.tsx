@@ -1,12 +1,12 @@
 import {connect} from "react-redux";
 import {
-    followUnfollowAC,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    SingleUserType, toggleIsLoadingAC
+    followUnfollow,
+    setCurrentPage,
+    setUsers,
+    setUsersTotalCount,
+    SingleUserType, toggleIsLoading
 } from "../../redux/users-reducer";
-import {AppDispatch, AppRootType} from "../../redux/store-redux";
+import {AppRootType} from "../../redux/store-redux";
 import React from "react";
 import axios from "axios";
 import {UserPresentational} from "./UserPresentational";
@@ -20,7 +20,7 @@ export type UsersPropsType = {
     isFetching: boolean
     followUnfollow: (userId: number) => void
     setUsers: (users: Array<SingleUserType>) => void
-    setTotalUsersCount: (count: number) => void
+    setUsersTotalCount: (count: number) => void
     setCurrentPage: (page: number) => void
     toggleIsLoading: (isFetching: boolean) => void
 }
@@ -34,7 +34,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                     this.props.toggleIsLoading(false);
                     console.log(response)
                     this.props.setUsers(response.data.items);
-                    this.props.setTotalUsersCount(response.data.totalCount);
+                    this.props.setUsersTotalCount(response.data.totalCount);
                 }
             )
     }
@@ -78,7 +78,7 @@ let mapStateToProps = (state: AppRootType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: AppDispatch) => {
+/*let mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         followUnfollow: (userId: number) => {
             dispatch(followUnfollowAC(userId));
@@ -96,15 +96,15 @@ let mapDispatchToProps = (dispatch: AppDispatch) => {
             dispatch(toggleIsLoadingAC(isFetching))
         }
     }
-}
+}*/
 
 const UsersContainer = connect(mapStateToProps,
     {
-        followUnfollow: followUnfollowAC,
-        setUsers: setUsersAC,
-        setTotalUsersCount: setUsersTotalCountAC,
-        setCurrentPage: setCurrentPageAC,
-        toggleIsLoading: toggleIsLoadingAC
+        followUnfollow,
+        setUsers,
+        setUsersTotalCount,
+        setCurrentPage,
+        toggleIsLoading
     })(UsersAPIComponent);
 
 // type ConnectedPropsType = ConnectedProps<typeof UsersContainer>

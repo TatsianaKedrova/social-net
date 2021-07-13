@@ -60,11 +60,11 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchF
 }
 
 //action creators
-export const updateNewMessageBodyAC = (updatedMessage: string) => ({type: 'UPDATE_NEW_MESSAGE_BODY', body: updatedMessage} as const);
-export const sendMessageAC = () => ({type: 'SEND_MESSAGE'} as const);
+export const updateNewMessageBody = (updatedMessage: string) => ({type: 'UPDATE_NEW_MESSAGE_BODY', body: updatedMessage} as const);
+export const sendMessage = () => ({type: 'SEND_MESSAGE'} as const);
 
 //types of AC
-export type UpdateMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-export type SendMessageType = ReturnType<typeof sendMessageAC>
+export type UpdateMessageBodyType = ReturnType<typeof updateNewMessageBody>
+export type SendMessageType = ReturnType<typeof sendMessage>
 
 export default dialogsReducer;

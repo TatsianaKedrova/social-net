@@ -19,6 +19,7 @@ let initialState = {
 };
 export type InitUsersStateType = typeof initialState;
 
+//reducer
 const usersReducer = (state = initialState, action: UserReducerDispatchType): InitUsersStateType => {
     switch (action.type) {
         case 'TOGGLE_FOLLOW_UNFOLLOW':
@@ -51,21 +52,20 @@ const usersReducer = (state = initialState, action: UserReducerDispatchType): In
     }
 }
 //action creators
-export const followUnfollowAC = (userId: number) => ({type: 'TOGGLE_FOLLOW_UNFOLLOW', userId} as const);
-export const setUsersAC = (users: Array<SingleUserType>) => ({type: 'SET_USERS', users} as const);
-export const setUsersTotalCountAC = (count: number) => ({type: 'TOTAL_USERS_COUNT', count} as const)
-export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
-export const toggleIsLoadingAC = (isFetching: boolean) => ({ type: 'IS_LOADING', isFetching } as const )
+export const followUnfollow = (userId: number) => ({type: 'TOGGLE_FOLLOW_UNFOLLOW', userId} as const);
+export const setUsers = (users: Array<SingleUserType>) => ({type: 'SET_USERS', users} as const);
+export const setUsersTotalCount = (count: number) => ({type: 'TOTAL_USERS_COUNT', count} as const)
+export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
+export const toggleIsLoading = (isFetching: boolean) => ({ type: 'IS_LOADING', isFetching } as const )
 
 
 //types of AC
-export type FollowUnfollowToggleType = ReturnType<typeof followUnfollowAC>
-export type SetUsersType = ReturnType<typeof setUsersAC>
-export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCountAC>
-export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
-export type IsLoadingType = ReturnType<typeof toggleIsLoadingAC>
+export type FollowUnfollowToggleType = ReturnType<typeof followUnfollow>
+export type SetUsersType = ReturnType<typeof setUsers>
+export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCount>
+export type SetCurrentPageType = ReturnType<typeof setCurrentPage>
+export type IsLoadingType = ReturnType<typeof toggleIsLoading>
 
 export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType;
-
 
 export default usersReducer;
