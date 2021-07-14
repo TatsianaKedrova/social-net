@@ -47,6 +47,8 @@ const usersReducer = (state = initialState, action: UserReducerDispatchType): In
             return {...state,
             isLoading: action.isFetching
             }
+        // case "REDIRECT_TO_USER_PROFILE":
+
         default:
             return state;
     }
@@ -57,6 +59,7 @@ export const setUsers = (users: Array<SingleUserType>) => ({type: 'SET_USERS', u
 export const setUsersTotalCount = (count: number) => ({type: 'TOTAL_USERS_COUNT', count} as const)
 export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
 export const toggleIsLoading = (isFetching: boolean) => ({ type: 'IS_LOADING', isFetching } as const )
+export const redirectToUserProfile = (userId: number) => ({ type: 'REDIRECT_TO_USER_PROFILE', userId } as const )
 
 
 //types of AC
@@ -65,7 +68,8 @@ export type SetUsersType = ReturnType<typeof setUsers>
 export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCount>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPage>
 export type IsLoadingType = ReturnType<typeof toggleIsLoading>
+export type RedirectToUserProfileType = ReturnType<typeof redirectToUserProfile>
 
-export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType;
+export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | RedirectToUserProfileType;
 
 export default usersReducer;
