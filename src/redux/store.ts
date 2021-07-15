@@ -1,5 +1,4 @@
-import profileReducer, {AddPostActionType, UpdatePostActionType} from "./profile-reducer";
-import dialogsReducer, {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
+import profileReducer, {AddPostActionType, UpdatePostActionType} from "./profile-reducer";import dialogsReducer, {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
 
 declare const window: any;
 
@@ -83,11 +82,12 @@ const store: StoreType = {
     },
 
     dispatch(action) {
+/*
+        Commented this because I don't use store anymore, instead I am using store-redux
 
         this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);*/
         this._callSubscriber(this._state);
-
         /*switch (action.type) {
             case SEND_MESSAGE:
                 let body = this._state.dialogsPage.newMessageBody;

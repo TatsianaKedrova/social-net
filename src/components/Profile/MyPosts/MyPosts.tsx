@@ -1,8 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Posts/Post";
-import {PostType} from "../../../redux/store";
 import {Button, Jumbotron} from "react-bootstrap";
+import {PostType} from "../../../redux/profile-reducer";
 
 
 export type MyPostsPropsType = {
@@ -35,7 +35,6 @@ const MyPosts = (props: MyPostsPropsType) => {
     }
 
     let onPostChange = (e:ChangeEvent) => {
-        debugger;
 
         let text = newPostElement.current?.value;
         if (text !== undefined) {

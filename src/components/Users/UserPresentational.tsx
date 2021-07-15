@@ -46,7 +46,7 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
 
                                 <img
                                     // onClick={}
-                                    src={u.photos.small != null ? u.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"}
+                                    src={u.photos.small !== null ? u.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"}
                                     className={s.photo}
                                     alt={"avatar"}/>
                                 </NavLink>

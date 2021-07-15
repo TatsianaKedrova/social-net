@@ -80,12 +80,11 @@ let mapStateToProps = (state: AppRootType) => {
 
 const UsersContainer = connect(mapStateToProps,
     {
-        followUnfollow: followUnfollow,
+        followUnfollow,
         setUsers,
         setUsersTotalCount,
         setCurrentPage,
         toggleIsLoading
     })(UsersAPIComponent);
 
-// type ConnectedPropsType = ConnectedProps<typeof UsersContainer>
 export default UsersContainer;
