@@ -2,10 +2,16 @@
     grid-area: h;
     background-color: lightskyblue;
 }
-/*.socialNetStyle {
-    justify-content: center;
-}*/
+
 .header img {
     width: 70px;
     height: 70px;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a {
+    color: white;
 }

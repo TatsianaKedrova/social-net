@@ -2,16 +2,16 @@ let initialState = {
     userId: null,
     email: null,
     login: null,
-    // isLoading: false
+    isLoading: false
 };
 
-type InitialStateType = {
+ export type InitialLoginType = {
     userId: number | null
     email: string | null
     login: string | null
-    // isLoading: boolean
+    isLoading: boolean
 };
-const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
+const authReducer = (state: InitialLoginType = initialState, action: ActionType) => {
 
     switch (action.type) {
         case "AUTH/SET-USER-DATA" :
@@ -25,10 +25,10 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 }
 
 //action creators
-export const setUserData = (data: InitialStateType) => ({type: 'AUTH/SET-USER-DATA', data} as const);
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null) => ({type: 'AUTH/SET-USER-DATA', data: {userId, email, login}} as const);
 
 //types of AC
-export type SetUserDataType = ReturnType<typeof setUserData>
+export type SetUserDataType = ReturnType<typeof setAuthUserData>
 type ActionType = SetUserDataType;
 
 export default authReducer;
