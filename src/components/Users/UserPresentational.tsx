@@ -3,6 +3,7 @@ import {v1} from "uuid";
 import s from "./Users.module.css";
 import {SingleUserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UserPresentationalPropsType = {
     users: Array<SingleUserType>
@@ -52,7 +53,15 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                 </div>
                             <button
                                 onClick={() => {
-                                    followUnfollow(u.id)
+
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                        withCredentials: true
+                                    })
+                                        .then(res => {
+                                            if(res.data.resultCode === 0) {
+                                                followUnfollow(u.id)
+                                            }
+                                        })
                                 }}
                             >{u.followed ? "Follow" : "Unfollow"}</button>
                         </span>
