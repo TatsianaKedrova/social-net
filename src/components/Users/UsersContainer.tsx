@@ -8,9 +8,9 @@ import {
 } from "../../redux/users-reducer";
 import {AppRootType} from "../../redux/store-redux";
 import React from "react";
-import axios from "axios";
 import {UserPresentational} from "./UserPresentational";
 import Preloader from "../common/Preloader/Preloader";
+import {getUsers} from "../../api/socialNetAPI";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
@@ -29,7 +29,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleIsLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        getUsers(this.props.currentPage, this.props.pageSize)
             .then(response => {
                     this.props.toggleIsLoading(false);
                     console.log(response)
@@ -42,7 +42,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        getUsers(pageNumber, this.props.pageSize )
             .then(response => {
                 this.props.toggleIsLoading(false);
                 this.props.setUsers(response.data.items);

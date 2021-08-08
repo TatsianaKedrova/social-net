@@ -53,15 +53,12 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                 </div>
                             <button
                                 onClick={() => {
-
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                        withCredentials: true
-                                    })
-                                        .then(res => {
-                                            if(res.data.resultCode === 0) {
-                                                followUnfollow(u.id)
-                                            }
-                                        })
+                                    console.log(u.followed);
+                                    const promisePost = axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true});
+                                    const promiseDelete = axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true});
+                                    console.log(promisePost, promiseDelete)
+                                   /* u.followed ?
+                                        promisePost.then(() => followUnfollow(u.id)) : promiseDelete.then(() => followUnfollow(u.id))*/
                                 }}
                             >{u.followed ? "Follow" : "Unfollow"}</button>
                         </span>

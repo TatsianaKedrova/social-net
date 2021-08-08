@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export type HeaderPresentationalPropsType = {
     isAuth: boolean
-    login: string
+    login: string | null
     setAuthUserData: (userId: number | null, email: string | null,login: string | null) => void
 }
 

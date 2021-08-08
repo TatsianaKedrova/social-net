@@ -7,7 +7,7 @@ import {AppRootType} from "../../redux/store-redux";
 
 export type HeaderAPIPropsType = {
     isAuth: boolean
-    login: string
+    login: string | null
     setAuthUserData: (userId: number | null, email: string | null,login: string | null) => void
 }
 
