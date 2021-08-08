@@ -18,7 +18,7 @@ const App: React.FC<AppPropsType> = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <HeaderContainer/>
+                <HeaderContainer />
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Switch>

@@ -14,14 +14,12 @@ export type InitialLoginType = {
 const authReducer = (state: InitialLoginType = initialState, action: ActionType) => {
 
     switch (action.type) {
+
         case "AUTH/SET-USER-DATA" :
             return {
                 ...state,
-                ...action.data
-            }
-        case "AUTH/IS-USER-AUTHENTICATED":
-            return {
-                ...state, isAuth: action.isAuth
+                ...action.data,
+                isAuth: true
             }
         default:
             return state;
@@ -33,11 +31,9 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
     type: 'AUTH/SET-USER-DATA',
     data: {userId, email, login}
 } as const);
-export const isUserAuthenticated = (isAuth: boolean) => ({type: 'AUTH/IS-USER-AUTHENTICATED', isAuth} as const);
 
 //types of AC
 export type SetUserDataType = ReturnType<typeof setAuthUserData>
-export type IsUserAuthenticatedType = ReturnType<typeof isUserAuthenticated>
-type ActionType = SetUserDataType | IsUserAuthenticatedType;
+type ActionType = SetUserDataType;
 
 export default authReducer;
