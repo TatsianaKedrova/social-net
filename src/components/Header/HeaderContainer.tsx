@@ -12,7 +12,6 @@ export type HeaderAPIPropsType = {
 
 class HeaderAPIComponent extends React.Component<HeaderAPIPropsType> {
 
-
     componentDidMount() {
         axios.get("https://social-network.samuraijs.com/api/1.0/auth/me", {
             withCredentials: true
@@ -23,7 +22,6 @@ class HeaderAPIComponent extends React.Component<HeaderAPIPropsType> {
                     this.props.setAuthUserData(id, email, login);
                 }
                 console.log(res.data);
-
             })
     }
 
