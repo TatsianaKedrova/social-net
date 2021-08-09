@@ -11,7 +11,7 @@ const instance = axios.create({
 
 export const userAPI = {
     getUsers: (currentPage: number = 1, pageSize: number = 10) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(res => {
                 return res.data
             })

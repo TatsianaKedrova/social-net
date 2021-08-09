@@ -3,7 +3,7 @@ import {v1} from "uuid";
 import s from "./Users.module.css";
 import {SingleUserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {userAPI} from "../../api/socialNetAPI";
 
 type UserPresentationalPropsType = {
     users: Array<SingleUserType>
@@ -59,12 +59,7 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
                                         toggleDisabled(u.id, true);
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
-                                            }
-                                        })
+                                        userAPI.unfollow(u.id)
                                             .then((res) => {
                                                 if (res.data.resultCode === 0) {
                                                     followUnfollow(u.id)
@@ -75,13 +70,8 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                 : <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
-                                        toggleDisabled(u.id, true)
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
-                                            }
-                                        })
+                                        toggleDisabled(u.id, true);
+                                        userAPI.follow(u.id)
                                             .then((res) => {
                                                 if (res.data.resultCode === 0) {
                                                     followUnfollow(u.id)
@@ -105,5 +95,18 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
             }
         </div>
     )
-
 }
+
+/*axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                           withCredentials: true,
+                                           headers: {
+                                               "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
+                                           }
+                                       })*/
+/*
+axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+    withCredentials: true,
+    headers: {
+        "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
+    }
+})*/
