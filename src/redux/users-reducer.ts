@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userAPI} from "../api/socialNetAPI";
+
 export type SingleUserType = {
     name: string,
     id: number,
@@ -73,6 +76,18 @@ export type SetTotalUsersCountType = ReturnType<typeof setUsersTotalCount>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPage>
 export type IsLoadingType = ReturnType<typeof toggleIsLoading>
 export type FollowingInProgressType = ReturnType<typeof toggleDisabled>
+
+//thunk creators
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<UserReducerDispatchType>) => {
+    dispatch(toggleIsLoading(true));
+    userAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+                dispatch(toggleIsLoading(false));
+                dispatch(setUsers(data.items));
+                dispatch(setUsersTotalCount(data.totalCount));
+            }
+        )
+}
 
 export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | FollowingInProgressType;
 

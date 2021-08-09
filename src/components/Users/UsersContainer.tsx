@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {
-    followUnfollow,
+    followUnfollow, getUsersTC,
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
@@ -25,20 +25,14 @@ export type UsersPropsType = {
     toggleIsLoading: (isFetching: boolean) => void
     toggleDisabled: (userId: number, isFetching: boolean) => void
     followingInProgress: Array<number>
+    getUsersTC: (currentPage: number, pageSize: number) => void
+        // (dispatch: Dispatch) => void
 }
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.toggleIsLoading(true);
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                    console.log(data)
-                    this.props.toggleIsLoading(false);
-                    this.props.setUsers(data.items);
-                    this.props.setUsersTotalCount(data.totalCount);
-                }
-            )
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -91,7 +85,8 @@ const UsersContainer = connect(mapStateToProps,
         setUsersTotalCount,
         setCurrentPage,
         toggleIsLoading,
-        toggleDisabled: toggleDisabled
+        toggleDisabled,
+        getUsersTC
     })(UsersAPIComponent);
 
 export default UsersContainer;
