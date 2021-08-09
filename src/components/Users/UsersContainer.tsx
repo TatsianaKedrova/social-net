@@ -4,13 +4,13 @@ import {
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
-    SingleUserType, toggleIsLoading
+    SingleUserType, toggleDisabled, toggleIsLoading
 } from "../../redux/users-reducer";
 import {AppRootType} from "../../redux/store-redux";
 import React from "react";
 import {UserPresentational} from "./UserPresentational";
 import Preloader from "../common/Preloader/Preloader";
-import {getUsers} from "../../api/socialNetAPI";
+import {userAPI} from "../../api/socialNetAPI";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
@@ -23,18 +23,20 @@ export type UsersPropsType = {
     setUsersTotalCount: (count: number) => void
     setCurrentPage: (page: number) => void
     toggleIsLoading: (isFetching: boolean) => void
+    toggleDisabled: (userId: number, isFetching: boolean) => void
+    followingInProgress: Array<number>
 }
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toggleIsLoading(true);
-        getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response => {
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                    console.log(data)
                     this.props.toggleIsLoading(false);
-                    console.log(response)
-                    this.props.setUsers(response.data.items);
-                    this.props.setUsersTotalCount(response.data.totalCount);
+                    this.props.setUsers(data.items);
+                    this.props.setUsersTotalCount(data.totalCount);
                 }
             )
     }
@@ -42,26 +44,29 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsLoading(true);
-        getUsers(pageNumber, this.props.pageSize )
-            .then(response => {
-                this.props.toggleIsLoading(false);
-                this.props.setUsers(response.data.items);
-            }
-        )
+        userAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                    this.props.toggleIsLoading(false);
+                    this.props.setUsers(data.items);
+                }
+            )
     }
 
     render() {
 
         return <>
             {this.props.isFetching ?
-                <Preloader /> : null}
+                <Preloader/> : null}
             <UserPresentational
                 users={this.props.users}
                 pageSize={this.props.pageSize}
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
                 followUnfollow={this.props.followUnfollow}
-                onPageChanged={this.onPageChanged}/>
+                onPageChanged={this.onPageChanged}
+                toggleDisabled={this.props.toggleDisabled}
+                followingInProgress={this.props.followingInProgress}
+            />
         </>
 
     }
@@ -74,7 +79,8 @@ let mapStateToProps = (state: AppRootType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isLoading
+        isFetching: state.usersPage.isLoading,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -84,7 +90,8 @@ const UsersContainer = connect(mapStateToProps,
         setUsers,
         setUsersTotalCount,
         setCurrentPage,
-        toggleIsLoading
+        toggleIsLoading,
+        toggleDisabled: toggleDisabled
     })(UsersAPIComponent);
 
 export default UsersContainer;

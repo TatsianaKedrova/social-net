@@ -12,6 +12,8 @@ type UserPresentationalPropsType = {
     currentPage: number
     followUnfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
+    toggleDisabled: (userId: number, isFetching: boolean) => void
+    followingInProgress: Array<number>
 }
 
 export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
@@ -20,7 +22,9 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                                                               totalUsersCount,
                                                                               currentPage,
                                                                               followUnfollow,
-                                                                              onPageChanged
+                                                                              onPageChanged,
+                                                                              toggleDisabled,
+                                                                              followingInProgress
                                                                           }) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -51,16 +55,42 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                     alt={"avatar"}/>
                                 </NavLink>
                                 </div>
-                            <button
-                                onClick={() => {
-                                    console.log(u.followed);
-                                    const promisePost = axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {withCredentials: true});
-                                    const promiseDelete = axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true});
-                                    console.log(promisePost, promiseDelete)
-                                   /* u.followed ?
-                                        promisePost.then(() => followUnfollow(u.id)) : promiseDelete.then(() => followUnfollow(u.id))*/
-                                }}
-                            >{u.followed ? "Follow" : "Unfollow"}</button>
+                            {u.followed ? <button
+                                    disabled={followingInProgress.some(item => item === u.id)}
+                                    onClick={() => {
+                                        toggleDisabled(u.id, true);
+                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                            withCredentials: true,
+                                            headers: {
+                                                "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
+                                            }
+                                        })
+                                            .then((res) => {
+                                                if (res.data.resultCode === 0) {
+                                                    followUnfollow(u.id)
+                                                }
+                                                toggleDisabled(u.id, false)
+                                            })
+                                    }}>Unfollow</button>
+                                : <button
+                                    disabled={followingInProgress.some(item => item === u.id)}
+                                    onClick={() => {
+                                        toggleDisabled(u.id, true)
+                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                            withCredentials: true,
+                                            headers: {
+                                                "API-KEY": "3356848e-44a4-478d-85f0-1e1fabb15c46"
+                                            }
+                                        })
+                                            .then((res) => {
+                                                if (res.data.resultCode === 0) {
+                                                    followUnfollow(u.id)
+                                                }
+                                                toggleDisabled(u.id, false)
+                                            })
+                                    }}>Follow</button>
+                            }
+
                         </span>
                     <span>
                            <span>
