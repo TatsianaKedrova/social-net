@@ -12,7 +12,7 @@ let reducers = combineReducers({
 
 });
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 // @ts-ignore
 window.store = store;
