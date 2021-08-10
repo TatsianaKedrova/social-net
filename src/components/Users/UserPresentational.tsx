@@ -3,7 +3,6 @@ import {v1} from "uuid";
 import s from "./Users.module.css";
 import {SingleUserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {userAPI} from "../../api/socialNetAPI";
 
 type UserPresentationalPropsType = {
     users: Array<SingleUserType>
@@ -14,6 +13,8 @@ type UserPresentationalPropsType = {
     onPageChanged: (pageNumber: number) => void
     toggleDisabled: (userId: number, isFetching: boolean) => void
     followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
@@ -24,7 +25,9 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                                                               followUnfollow,
                                                                               onPageChanged,
                                                                               toggleDisabled,
-                                                                              followingInProgress
+                                                                              followingInProgress,
+                                                                              follow,
+                                                                              unfollow
                                                                           }) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -58,26 +61,26 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                             {u.followed ? <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
-                                        toggleDisabled(u.id, true);
+                                        /*toggleDisabled(u.id, true);
                                         userAPI.unfollow(u.id)
                                             .then((res) => {
                                                 if (res.data.resultCode === 0) {
                                                     followUnfollow(u.id)
                                                 }
                                                 toggleDisabled(u.id, false)
-                                            })
+                                            })*/
                                     }}>Unfollow</button>
                                 : <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
-                                        toggleDisabled(u.id, true);
+                                        /*toggleDisabled(u.id, true);
                                         userAPI.follow(u.id)
                                             .then((res) => {
                                                 if (res.data.resultCode === 0) {
                                                     followUnfollow(u.id)
                                                 }
                                                 toggleDisabled(u.id, false)
-                                            })
+                                            })*/
                                     }}>Follow</button>
                             }
 

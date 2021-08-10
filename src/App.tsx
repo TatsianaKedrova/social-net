@@ -29,7 +29,7 @@ const App: React.FC<AppPropsType> = () => {
                                render={() => <ProfileContainer/>}/>
 
                         <Route path="/users"
-                               render={() => <UsersContainer/>}/>
+                               render={() => <UsersContainer />}/>
 
                         <Route path="/news"
                                render={() => <News/>}/>

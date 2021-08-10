@@ -24,7 +24,7 @@ let initialState = {
 export type InitUsersStateType = typeof initialState;
 
 //reducer
-const usersReducer = (state = initialState, action: UserReducerDispatchType): InitUsersStateType => {
+const usersReducer = (state = initialState, action: UsersActionsType): InitUsersStateType => {
     switch (action.type) {
         case 'TOGGLE_FOLLOW_UNFOLLOW':
             return {
@@ -78,7 +78,7 @@ export type IsLoadingType = ReturnType<typeof toggleIsLoading>
 export type FollowingInProgressType = ReturnType<typeof toggleDisabled>
 
 //thunk creators
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<UserReducerDispatchType>) => {
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch<UsersActionsType>) => {
     dispatch(toggleIsLoading(true));
     userAPI.getUsers(currentPage, pageSize)
         .then(data => {
@@ -89,7 +89,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
         )
 }
 
-export const onPageChangeTC = (pageNumber: number, pageSize: number) => (dispatch: Dispatch<UserReducerDispatchType>) => {
+export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch: Dispatch<UsersActionsType>) => {
     dispatch(setCurrentPage(pageNumber))
     dispatch(toggleIsLoading(true));
     userAPI.getUsers(pageNumber, pageSize)
@@ -99,7 +99,29 @@ export const onPageChangeTC = (pageNumber: number, pageSize: number) => (dispatc
             }
         )
 }
+export const followTC = (userId: number) => (dispatch: Dispatch<UsersActionsType>) => {
+    dispatch(toggleDisabled(userId, true))
+    userAPI.follow(userId)
+            .then((res) => {
+                    if (res.data.resultCode === 0) {
+                        dispatch(followUnfollow(userId))
+                    }
+                    dispatch(toggleDisabled(userId, false))
+                })
+}
 
-export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | FollowingInProgressType;
+export const unfollowTC = (userId: number) => (dispatch: Dispatch<UsersActionsType>) => {
+    dispatch(toggleDisabled(userId, true))
+    userAPI.unfollow(userId)
+            .then((res) => {
+                    if (res.data.resultCode === 0) {
+                        dispatch(followUnfollow(userId))
+                    }
+                    dispatch(toggleDisabled(userId, false))
+                })
+}
+
+//types
+export type UsersActionsType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | FollowingInProgressType;
 
 export default usersReducer;
