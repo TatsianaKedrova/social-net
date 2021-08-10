@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 
 export type AppPropsType = {}
@@ -37,6 +38,8 @@ const App: React.FC<AppPropsType> = () => {
                                render={() => <Music/>}/>
                         <Route path="/settings"
                                render={() => <Settings/>}/>
+                        <Route path="/login"
+                               render={() => <Login/>}/>
 
                     </Switch>
                 </div>

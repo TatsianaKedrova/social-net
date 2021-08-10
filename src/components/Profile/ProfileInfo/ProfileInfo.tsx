@@ -17,14 +17,14 @@ const ProfileInfo:React.FC<ProfileInfoPropsType> = (props) => {
 		<div>
 			<div className={classes.content}>
 				<img
-					src="https://www.learningspace.co.zw/wp-content/uploads/sites/391/2019/12/electricity.0.jpg"
+					src="https://www.hdwallpaper.nu/wp-content/uploads/2015/06/Rainbow-Over-Sea-Wallpaper.jpg"
 					alt="electricityPic"
 				/>
 			</div>
 			<div className={classes.descriptionBlock}>
 				<img
 					className={classes.avatarProperties}
-					src={props.userProfile?.photos.small !== null ? props.userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"}/>
+					src={props.userProfile?.photos.small !== null ? props.userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"} alt={"avatar Photo"}/>
 			</div>
 		</div>
 	);
