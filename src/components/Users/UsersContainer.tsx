@@ -1,16 +1,19 @@
 import {connect} from "react-redux";
 import {
-    followUnfollow, getUsersTC,
+    followUnfollow,
+    getUsersTC,
+    onPageChangeTC,
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
-    SingleUserType, toggleDisabled, toggleIsLoading
+    SingleUserType,
+    toggleDisabled,
+    toggleIsLoading
 } from "../../redux/users-reducer";
 import {AppRootType} from "../../redux/store-redux";
 import React from "react";
 import {UserPresentational} from "./UserPresentational";
 import Preloader from "../common/Preloader/Preloader";
-import {userAPI} from "../../api/socialNetAPI";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
@@ -26,7 +29,7 @@ export type UsersPropsType = {
     toggleDisabled: (userId: number, isFetching: boolean) => void
     followingInProgress: Array<number>
     getUsersTC: (currentPage: number, pageSize: number) => void
-        // (dispatch: Dispatch) => void
+    onPageChange: (pageNumber: number, pageSize: number) => void
 }
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
@@ -36,14 +39,15 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
+        this.props.onPageChange(pageNumber, this.props.pageSize)
+        /*this.props.setCurrentPage(pageNumber);
         this.props.toggleIsLoading(true);
         userAPI.getUsers(pageNumber, this.props.pageSize)
             .then(data => {
                     this.props.toggleIsLoading(false);
                     this.props.setUsers(data.items);
                 }
-            )
+            )*/
     }
 
     render() {
@@ -86,7 +90,8 @@ const UsersContainer = connect(mapStateToProps,
         setCurrentPage,
         toggleIsLoading,
         toggleDisabled,
-        getUsersTC
+        getUsers: getUsersTC,
+        onPageChange: onPageChangeTC
     })(UsersAPIComponent);
 
 export default UsersContainer;

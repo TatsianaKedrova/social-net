@@ -89,6 +89,17 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
         )
 }
 
+export const onPageChangeTC = (pageNumber: number, pageSize: number) => (dispatch: Dispatch<UserReducerDispatchType>) => {
+    dispatch(setCurrentPage(pageNumber))
+    dispatch(toggleIsLoading(true));
+    userAPI.getUsers(pageNumber, pageSize)
+        .then(data => {
+                dispatch(toggleIsLoading(false));
+                dispatch(setUsers(data.items));
+            }
+        )
+}
+
 export type UserReducerDispatchType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | FollowingInProgressType;
 
 export default usersReducer;
