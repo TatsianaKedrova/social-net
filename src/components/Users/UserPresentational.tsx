@@ -9,9 +9,7 @@ type UserPresentationalPropsType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    followUnfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    toggleDisabled: (userId: number, isFetching: boolean) => void
     followingInProgress: Array<number>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
@@ -60,27 +58,11 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
                                         unfollow(u.id)
-                                        /*toggleDisabled(u.id, true);
-                                        userAPI.unfollow(u.id)
-                                            .then((res) => {
-                                                if (res.data.resultCode === 0) {
-                                                    followUnfollow(u.id)
-                                                }
-                                                toggleDisabled(u.id, false)
-                                            })*/
                                     }}>Unfollow</button>
                                 : <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
                                         follow(u.id)
-                                        /*toggleDisabled(u.id, true);
-                                        userAPI.follow(u.id)
-                                            .then((res) => {
-                                                if (res.data.resultCode === 0) {
-                                                    followUnfollow(u.id)
-                                                }
-                                                toggleDisabled(u.id, false)
-                                            })*/
                                     }}>Follow</button>
                             }
 

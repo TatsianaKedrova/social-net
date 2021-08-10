@@ -24,6 +24,12 @@ export const userAPI = {
     }
 }
 
+export const authAPI = {
+    setAuth() {
+        return instance.get<ResponseServerType<LoginResponseType>>("auth/me")
+    }
+}
+
 export type ResponseServerType<D = {}> = {
     resultCode: number
     messages: Array<string>,
@@ -34,4 +40,10 @@ export type UsersResponseType = {
     items: Array<SingleUserType>,
     totalCount: number,
     error: null | string
+}
+
+export type LoginResponseType = {
+    id: number
+    email: string
+    login: string
 }

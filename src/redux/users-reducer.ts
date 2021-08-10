@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {userAPI} from "../api/socialNetAPI";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootType} from "./store-redux";
 
 export type SingleUserType = {
     name: string,
@@ -88,8 +90,8 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
             }
         )
 }
-
-export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch: Dispatch<UsersActionsType>) => {
+//Dispatch<UsersActionsType> || ThunkDispatch<AppRootType, unknown, UsersActionsType>
+export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch: ThunkDispatch<AppRootType, unknown, UsersActionsType>) => {
     dispatch(setCurrentPage(pageNumber))
     dispatch(toggleIsLoading(true));
     userAPI.getUsers(pageNumber, pageSize)

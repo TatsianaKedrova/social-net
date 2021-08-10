@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/socialNetAPI";
+
 let initialState = {
     userId: null,
     email: null,
@@ -35,5 +38,16 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 //types of AC
 export type SetUserDataType = ReturnType<typeof setAuthUserData>
 type ActionType = SetUserDataType;
+
+//thunk creators
+export const setAuthTC = () => (dispatch: Dispatch) => {
+    authAPI.setAuth()
+        .then(res => {
+            if(res.data.resultCode === 0) {
+                let { email, id, login } = res.data.data;
+                dispatch(setAuthUserData(id, email, login));
+            }
+        })
+}
 
 export default authReducer;
