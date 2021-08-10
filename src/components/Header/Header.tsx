@@ -23,4 +23,4 @@ const Header = (props: HeaderPresentationalPropsType) => {
     )
 }
 
-export default Header
+export default Header;

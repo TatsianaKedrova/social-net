@@ -41,7 +41,7 @@ type ActionType = SetUserDataType;
 
 //thunk creators
 export const setAuthTC = () => (dispatch: Dispatch) => {
-    authAPI.setAuth()
+    authAPI.me()
         .then(res => {
             if(res.data.resultCode === 0) {
                 let { email, id, login } = res.data.data;

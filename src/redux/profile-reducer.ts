@@ -1,4 +1,6 @@
 import {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
+import {Dispatch} from "redux";
+import {userAPI} from "../api/socialNetAPI";
 
 export type PostType = {
     id: number,
@@ -75,6 +77,16 @@ const profileReducer = (state: ProfilePageType = initialState, action: DispatchF
 export const addPostAC = () => ({type: 'ADD-POST'} as const);
 export const updateNewPostTextAC = (newText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText} as const);
 export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const);
+
+//thunk creators
+export const getProfileTC = (userId: number) => (dispatch: Dispatch) => {
+    userAPI.getProfile(userId)
+        .then(response => {
+                console.log(response)
+                dispatch(setUserProfile(response.data));
+            }
+        )
+}
 
 //types of AC
 export type AddPostActionType = ReturnType<typeof addPostAC>
