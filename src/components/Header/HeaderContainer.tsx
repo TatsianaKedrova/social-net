@@ -15,14 +15,6 @@ class HeaderAPIComponent extends React.Component<HeaderAPIPropsType> {
 
     componentDidMount() {
         this.props.setAuthTC();
-        /*authAPI.setAuth()
-            .then(res => {
-                if(res.data.resultCode === 0) {
-                    let { email, id, login } = res.data.data;
-                    this.props.setAuthUserData(id, email, login);
-                }
-                console.log(res.data);
-            })*/
     }
 
     render() {
