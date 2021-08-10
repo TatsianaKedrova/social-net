@@ -22,9 +22,7 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                                                               pageSize,
                                                                               totalUsersCount,
                                                                               currentPage,
-                                                                              followUnfollow,
                                                                               onPageChanged,
-                                                                              toggleDisabled,
                                                                               followingInProgress,
                                                                               follow,
                                                                               unfollow
@@ -61,6 +59,7 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                             {u.followed ? <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
+                                        unfollow(u.id)
                                         /*toggleDisabled(u.id, true);
                                         userAPI.unfollow(u.id)
                                             .then((res) => {
@@ -73,6 +72,7 @@ export const UserPresentational: React.FC<UserPresentationalPropsType> = ({
                                 : <button
                                     disabled={followingInProgress.some(item => item === u.id)}
                                     onClick={() => {
+                                        follow(u.id)
                                         /*toggleDisabled(u.id, true);
                                         userAPI.follow(u.id)
                                             .then((res) => {
