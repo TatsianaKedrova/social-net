@@ -1,5 +1,6 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/socialNetAPI";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootType} from "./store-redux";
 
 let initialState = {
     userId: null,
@@ -14,7 +15,7 @@ export type InitialLoginType = {
     login: string | null
     isAuth: boolean
 };
-const authReducer = (state: InitialLoginType = initialState, action: ActionType) => {
+const authReducer = (state: InitialLoginType = initialState, action: AuthActionsType) => {
 
     switch (action.type) {
 
@@ -35,12 +36,8 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
     data: {userId, email, login}
 } as const);
 
-//types of AC
-export type SetUserDataType = ReturnType<typeof setAuthUserData>
-type ActionType = SetUserDataType;
-
 //thunk creators
-export const setAuthTC = () => (dispatch: Dispatch) => {
+export const setAuthTC = () => (dispatch: ThunkDispatch<AppRootType, unknown, AuthActionsType>) => {
     authAPI.me()
         .then(res => {
             if(res.data.resultCode === 0) {
@@ -50,5 +47,10 @@ export const setAuthTC = () => (dispatch: Dispatch) => {
             console.log(res.data.data)
         })
 }
+
+//types of AC
+export type SetUserDataType = ReturnType<typeof setAuthUserData>
+type AuthActionsType = SetUserDataType;
+
 
 export default authReducer;

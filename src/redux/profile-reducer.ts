@@ -1,6 +1,7 @@
 import {SendMessageType, UpdateMessageBodyType} from "./dialogs-reducer";
-import {Dispatch} from "redux";
 import {userAPI} from "../api/socialNetAPI";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootType} from "./store-redux";
 
 export type PostType = {
     id: number,
@@ -44,7 +45,7 @@ let initialState = {
 }
 
 //reducer
-const profileReducer = (state: ProfilePageType = initialState, action: DispatchFunctionType): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
     switch (action.type) {
         case 'UPDATE-NEW-POST-TEXT':
             return {
@@ -79,7 +80,7 @@ export const updateNewPostTextAC = (newText: string) => ({type: 'UPDATE-NEW-POST
 export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const);
 
 //thunk creators
-export const getProfileTC = (userId: number) => (dispatch: Dispatch) => {
+export const getUserProfileTC = (userId: number) => (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     userAPI.getProfile(userId)
         .then(response => {
                 console.log(response)
@@ -92,7 +93,7 @@ export const getProfileTC = (userId: number) => (dispatch: Dispatch) => {
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type UpdatePostActionType = ReturnType<typeof updateNewPostTextAC>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
-export type DispatchFunctionType =
+export type ProfileActionsType =
     AddPostActionType
     | UpdatePostActionType
     | UpdateMessageBodyType

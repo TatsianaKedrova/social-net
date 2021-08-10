@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {userAPI} from "../api/socialNetAPI";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootType} from "./store-redux";
@@ -80,7 +79,7 @@ export type IsLoadingType = ReturnType<typeof toggleIsLoading>
 export type FollowingInProgressType = ReturnType<typeof toggleDisabled>
 
 //thunk creators
-export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch<UsersActionsType>) => {
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: ThunkDispatchType) => {
     dispatch(toggleIsLoading(true));
     userAPI.getUsers(currentPage, pageSize)
         .then(data => {
@@ -91,7 +90,7 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
         )
 }
 //Dispatch<UsersActionsType> || ThunkDispatch<AppRootType, unknown, UsersActionsType>
-export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch: ThunkDispatch<AppRootType, unknown, UsersActionsType>) => {
+export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch: ThunkDispatchType) => {
     dispatch(setCurrentPage(pageNumber))
     dispatch(toggleIsLoading(true));
     userAPI.getUsers(pageNumber, pageSize)
@@ -101,7 +100,7 @@ export const onPageChange = (pageNumber: number, pageSize: number) => (dispatch:
             }
         )
 }
-export const followTC = (userId: number) => (dispatch: Dispatch<UsersActionsType>) => {
+export const followTC = (userId: number) => (dispatch: ThunkDispatchType) => {
     dispatch(toggleDisabled(userId, true))
     userAPI.follow(userId)
             .then((res) => {
@@ -112,7 +111,7 @@ export const followTC = (userId: number) => (dispatch: Dispatch<UsersActionsType
                 })
 }
 
-export const unfollowTC = (userId: number) => (dispatch: Dispatch<UsersActionsType>) => {
+export const unfollowTC = (userId: number) => (dispatch: ThunkDispatchType) => {
     dispatch(toggleDisabled(userId, true))
     userAPI.unfollow(userId)
             .then((res) => {
@@ -126,4 +125,5 @@ export const unfollowTC = (userId: number) => (dispatch: Dispatch<UsersActionsTy
 //types
 export type UsersActionsType = FollowUnfollowToggleType | SetUsersType | SetTotalUsersCountType | SetCurrentPageType | IsLoadingType | FollowingInProgressType;
 
+export type ThunkDispatchType = ThunkDispatch<AppRootType, unknown, UsersActionsType>;
 export default usersReducer;

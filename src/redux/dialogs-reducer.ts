@@ -1,4 +1,4 @@
-import {DispatchFunctionType} from "./profile-reducer";
+import {ProfileActionsType} from "./profile-reducer";
 
 export type DialogType = {
     id: number,
@@ -36,7 +36,7 @@ let initialState = {
     newMessageBody: '',
 };
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DispatchFunctionType) : DialogsPageType=> {
+const dialogsReducer = (state: DialogsPageType = initialState, action: ProfileActionsType) : DialogsPageType=> {
 
 
     switch (action.type) {

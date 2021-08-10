@@ -13,6 +13,7 @@ export type HeaderAPIPropsType = {
 
 class HeaderAPIComponent extends React.Component<HeaderAPIPropsType> {
 
+
     componentDidMount() {
         this.props.setAuthTC();
     }
