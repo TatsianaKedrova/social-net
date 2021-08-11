@@ -44,7 +44,6 @@ export const setAuthTC = () => (dispatch: ThunkDispatch<AppRootType, unknown, Au
                 let { email, id, login } = res.data.data;
                 dispatch(setAuthUserData(id, email, login));
             }
-            console.log(res.data.data)
         })
 }
 

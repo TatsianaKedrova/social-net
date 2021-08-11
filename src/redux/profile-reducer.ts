@@ -83,7 +83,6 @@ export const setUserProfile = (profile: any) => ({type: 'SET_USER_PROFILE', prof
 export const getUserProfileTC = (userId: number) => (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     userAPI.getProfile(userId)
         .then(response => {
-                console.log(response)
                 dispatch(setUserProfile(response.data));
             }
         )
