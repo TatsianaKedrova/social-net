@@ -5,11 +5,9 @@ import {UserProfileType} from "../../redux/profile-reducer";
 
 export type ProfilePropsType = {
 	userProfile: UserProfileType | null
-	isAuth: boolean
 }
 
 const Profile: React.FC<ProfilePropsType>= (props) => {
-	console.log(props)
 	return (
 		<div>
 			<ProfileInfo userProfile={props.userProfile}/>
