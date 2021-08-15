@@ -24,7 +24,7 @@ const App: React.FC<AppPropsType> = () => {
                 <div className="app-wrapper-content">
                     <Switch>
                         <Route path="/dialogs"
-                               render={() => <DialogsContainer/>}/>
+                               render={() => <DialogsContainer />}/>
 
                         <Route path="/profile/:userId?"
                                render={() => <ProfileContainer/>}/>

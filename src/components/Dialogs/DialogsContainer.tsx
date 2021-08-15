@@ -17,13 +17,11 @@ let mapStateToProps = (state: AppRootType) => {
     }
 }
 
+const DialogsContainer = compose(withAuthRedirect, connect(mapStateToProps, { updateNewMessageBody, sendMessage }))(Dialogs)
+export default DialogsContainer;
 //redirect, connect
 /*
 const DialogsContainer = withAuthRedirect(connect(mapStateToProps, { updateNewMessageBody, sendMessage })(Dialogs));
 */
 // export type DialogsContainerConnectType = ConnectedProps<typeof DialogsContainer>
-
-export default compose(
-    withAuthRedirect,
-    connect(mapStateToProps, { updateNewMessageBody, sendMessage }))(Dialogs)
 
