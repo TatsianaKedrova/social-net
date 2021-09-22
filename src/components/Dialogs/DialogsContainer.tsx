@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {AppRootType} from "../../redux/store-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import React from "react";
 
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
@@ -17,11 +18,12 @@ let mapStateToProps = (state: AppRootType) => {
     }
 }
 
-const DialogsContainer = compose(withAuthRedirect, connect(mapStateToProps, { updateNewMessageBody, sendMessage }))(Dialogs)
-export default DialogsContainer;
-//redirect, connect
-/*
-const DialogsContainer = withAuthRedirect(connect(mapStateToProps, { updateNewMessageBody, sendMessage })(Dialogs));
-*/
-// export type DialogsContainerConnectType = ConnectedProps<typeof DialogsContainer>
+/*const DialogsContainer = compose(withAuthRedirect, connect(mapStateToProps, { updateNewMessageBody, sendMessage }))(Dialogs)
+export default DialogsContainer;*/
 
+const DialogsContainer= compose<React.ComponentType>(
+    connect(mapStateToProps, { updateNewMessageBody, sendMessage }),
+    withAuthRedirect
+)(Dialogs);
+
+export default DialogsContainer;

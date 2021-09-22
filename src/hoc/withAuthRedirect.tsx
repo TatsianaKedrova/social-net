@@ -12,12 +12,13 @@ let mapStateToPropsForRedirect = (state: AppRootType): MapStateToPropsType => {
     }
 }
 
-//P is just a generic with an arbitrary name
-// export function withAuthRedirect<P> (WrappedComponent: ComponentType<P>) {
+//T is just a generic with an arbitrary name
 export function withAuthRedirect<T>(WrappedComponent: ComponentType<T>) {
 
     const RedirectComponent = (props: MapStateToPropsType) => {
+
         let {isAuth, ...restProps} = props;
+        console.log(isAuth);
 
         if (!isAuth) return <Redirect to={"/login"}/>
         return <WrappedComponent  {...restProps as T}/>
