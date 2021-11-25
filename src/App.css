@@ -1,12 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&family=Mulish:ital,wght@0,200;0,800;1,200&display=swap");
+
 body {
 	min-height: 100%;
+	font-family: Mulish;
 }
 
 .app-wrapper {
 	margin: 0 auto;
 	width: 1200px;
 	display: grid;
-	/*width: 100vw;*/
 	height: 100vh;
 
 

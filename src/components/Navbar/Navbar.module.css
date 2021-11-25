@@ -2,9 +2,17 @@
   grid-area: n;
   background-color: #aaaae0;
   padding: 30px;
+  text-align: center;
+  height: 90vh;
+}
+
+.item {
+  margin-bottom: 10px;
+
 }
 
 .item a {
+  font-weight: 300;
   color: white;
   text-decoration: none;
   font-size: 20px;
