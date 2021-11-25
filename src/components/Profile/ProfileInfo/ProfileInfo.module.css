@@ -12,3 +12,25 @@ img {
     height: 80px;
     border-radius: 50%;
 }
+
+.profileStatus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(225, 203, 247);
+    width: 15%;
+    margin-top: 10px;
+    padding-top: 3px;
+    border-radius: 10px;
+}
+
+.editor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    margin-bottom: 3px;
+}
