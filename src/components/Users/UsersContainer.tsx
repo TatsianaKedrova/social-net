@@ -9,6 +9,8 @@ import {AppRootType} from "../../redux/store-redux";
 import React from "react";
 import {UserPresentational} from "./UserPresentational";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type UsersPropsType = {
     users: Array<SingleUserType>
@@ -67,14 +69,9 @@ let mapStateToProps = (state: AppRootType) => {
     }
 }
 
-const UsersContainer = connect(mapStateToProps,
-    {
-        followUnfollow,
-        toggleDisabled,
-        getUsers,
-        onPageChange,
-        followTC,
-        unfollowTC
-    })(UsersAPIComponent);
+const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, {followUnfollow, toggleDisabled, getUsers, onPageChange, followTC, unfollowTC}),
+     withAuthRedirect
+)(UsersAPIComponent);
 
 export default UsersContainer;

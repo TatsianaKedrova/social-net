@@ -1,20 +1,23 @@
 .nav {
-    grid-area: n;
-    background-color: #aaaae0;
-    padding: 30px;
-    
+  grid-area: n;
+  background-color: #aaaae0;
+  padding: 30px;
 }
 
 .item a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    
-
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
 }
 
 .item a.active {
-    color: #1313a5;
+  color: #1313a5;
 }
 
+.item {
+  transition: all 0.2s ease-in-out;
+}
 
+.item:hover {
+    transform: scale(1.1); 
+}
