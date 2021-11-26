@@ -6,22 +6,22 @@ import ProfileStatus from "./ProfileStatus";
 
 export type ProfileInfoPropsType = {
 	userProfile: UserProfileType | null
+	status: string
 }
 
-const ProfileInfo:React.FC<ProfileInfoPropsType> = (props) => {
+const ProfileInfo:React.FC<ProfileInfoPropsType> = ({userProfile, status}) => {
 
-	if(!props.userProfile) {
+	if(!userProfile) {
 		return <Preloader />
 	}
 
 	return (
 		<div>
 			<div className={classes.descriptionBlock}>
-
 				<img
 					className={classes.avatarProperties}
-					src={props.userProfile?.photos.small !== null ? props.userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"} alt={"avatar Photo"}/>
-					<ProfileStatus status={"I am so happy and proud of myself!"}/>
+					src={userProfile?.photos.small !== null ? userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"} alt={"avatar Photo"}/>
+					<ProfileStatus status={status}/>
 			</div>
 		</div>
 	);

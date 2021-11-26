@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppRootType} from "../../redux/store-redux";
-import {getUserProfileTC, setUserProfile, UserProfileType} from "../../redux/profile-reducer";
+import {getUserProfileTC, setUserProfile, UserProfileType, getUserProfileStatus } from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -13,10 +13,12 @@ type PathParamsType = {
 }
 type MapStatePropsType = {
     userProfile: UserProfileType | null
+    profileStatus: string
 }
 type MapDispatchPropsType = {
     setUserProfile: (profile: UserProfileType | null) => void
     getUserProfileTC: (userId: number) => void
+    getUserProfileStatus: (userId: number) => void
 }
 export type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 type CommonPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
@@ -29,6 +31,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
             userId = '2';
         }
         this.props.getUserProfileTC(+userId);
+        this.props.getUserProfileStatus(+userId)
     }
 
     render() {
@@ -47,6 +50,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 let mapStateToProps = (state: AppRootType): MapStatePropsType => {
     return {
         userProfile: state.profilePage.profile,
+        profileStatus: state.profilePage.profileStatus
     }
 }
 
@@ -55,7 +59,7 @@ let mapStateToProps = (state: AppRootType): MapStatePropsType => {
 // export default withAuthRedirect(withRouter(connect(mapStateToProps, {setUserProfile, getUserProfileTC})(ProfileContainer)));
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfile, getUserProfileTC}),
+    connect(mapStateToProps, {setUserProfile, getUserProfileTC, getUserProfileStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);
