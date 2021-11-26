@@ -17,11 +17,11 @@ const ProfileInfo:React.FC<ProfileInfoPropsType> = (props) => {
 	return (
 		<div>
 			<div className={classes.descriptionBlock}>
-				
+
 				<img
 					className={classes.avatarProperties}
 					src={props.userProfile?.photos.small !== null ? props.userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"} alt={"avatar Photo"}/>
-					<ProfileStatus />
+					<ProfileStatus status={"I am so happy and proud of myself!"}/>
 			</div>
 		</div>
 	);
