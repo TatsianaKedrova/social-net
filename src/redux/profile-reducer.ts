@@ -2,6 +2,7 @@ import { SendMessageType, UpdateMessageBodyType } from "./dialogs-reducer";
 import { profileAPI, userAPI } from "../api/socialNetAPI";
 import { ThunkDispatch } from "redux-thunk";
 import { AppRootType } from "./store-redux";
+import { type } from "os";
 
 export type PostType = {
   id: number;
@@ -74,6 +75,8 @@ const profileReducer = (
     case "SET_USER_STATUS":
       return { ...state, profileStatus: action.profileStatus };
 
+    case "CHANGE_PROFILE_STATUS":
+      return {...state, profileStatus: action.status};
     default:
       return state;
   }
@@ -87,6 +90,7 @@ export const setUserProfile = (profile: any) =>
   ({ type: "SET_USER_PROFILE", profile } as const);
 export const setProfileStatus = (profileStatus: string) =>
   ({ type: "SET_USER_STATUS", profileStatus } as const);
+  export const changeProfileStatus = (status: string) => ({type: "CHANGE_PROFILE_STATUS", status} as const)
 
 //thunk creators
 export const getUserProfileTC =
@@ -104,7 +108,7 @@ export const getUserProfileStatus =
   ) =>
   async (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     try {
-      const response = await profileAPI.getStatus(userId);
+      const response = await profileAPI.getProfileStatus(userId);
       console.log("response.data: ", response.data);
       console.log(typeof response.data);
       dispatch(setProfileStatus(response.data));
@@ -118,12 +122,14 @@ export type AddPostActionType = ReturnType<typeof addPostAC>;
 export type UpdatePostActionType = ReturnType<typeof updateNewPostTextAC>;
 export type SetUserProfileType = ReturnType<typeof setUserProfile>;
 export type SetProfileStatus = ReturnType<typeof setProfileStatus>;
+export type ChangeProfileStatus = ReturnType<typeof changeProfileStatus>;
 export type ProfileActionsType =
   | AddPostActionType
   | UpdatePostActionType
   | UpdateMessageBodyType
   | SendMessageType
   | SetUserProfileType
-  | SetProfileStatus;
+  | SetProfileStatus
+  | ChangeProfileStatus
 
 export default profileReducer;

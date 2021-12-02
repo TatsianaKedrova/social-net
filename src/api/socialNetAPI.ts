@@ -37,10 +37,12 @@ export const profileAPI = {
   getProfile(userId: number) {
     return instance.get<UserProfileType>(`profile/${userId}`);
   },
-  getStatus(userId: number) {
-    const status = instance.get(`/profile/status/${userId}`);
-    return status;
+  getProfileStatus(userId: number) {
+    return instance.get(`/profile/status/${userId}`);
   },
+  changeProfileStatus(status: string) {
+   return instance.put<ResponseServerType>('/profile/status', {status})
+  }
 };
 
 export const authAPI = {
