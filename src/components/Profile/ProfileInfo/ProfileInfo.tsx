@@ -1,15 +1,11 @@
 import React from "react";
 import classes from './ProfileInfo.module.css';
-import {UserProfileType} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import { ProfilePropsType } from "../Profile";
+import authUserPhoto from "../../../assets/authUserPhoto.jpg";
 
-export type ProfileInfoPropsType = {
-	userProfile: UserProfileType | null
-	status: string
-}
-
-const ProfileInfo:React.FC<ProfileInfoPropsType> = ({userProfile, status}) => {
+const ProfileInfo:React.FC<ProfilePropsType> = ({userProfile, profileStatus, changeProfileStatus}) => {
 
 	if(!userProfile) {
 		return <Preloader />
@@ -20,8 +16,8 @@ const ProfileInfo:React.FC<ProfileInfoPropsType> = ({userProfile, status}) => {
 			<div className={classes.descriptionBlock}>
 				<img
 					className={classes.avatarProperties}
-					src={userProfile?.photos.small !== null ? userProfile?.photos.small : "https://i.ytimg.com/vi/2Oe747XzeHw/maxresdefault.jpg"} alt={"avatar Photo"}/>
-					<ProfileStatus status={status}/>
+					src={userProfile?.photos.small !== null ? userProfile?.photos.small : authUserPhoto} alt={"avatar Photo"}/>
+					<ProfileStatus status={profileStatus} changeStatus={changeProfileStatus}/>
 			</div>
 		</div>
 	);

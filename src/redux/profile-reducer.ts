@@ -76,7 +76,7 @@ const profileReducer = (
       return { ...state, profileStatus: action.profileStatus };
 
     case "CHANGE_PROFILE_STATUS":
-      return {...state, profileStatus: action.status};
+      return { ...state, profileStatus: action.status };
     default:
       return state;
   }
@@ -90,9 +90,22 @@ export const setUserProfile = (profile: any) =>
   ({ type: "SET_USER_PROFILE", profile } as const);
 export const setProfileStatus = (profileStatus: string) =>
   ({ type: "SET_USER_STATUS", profileStatus } as const);
-  export const changeProfileStatus = (status: string) => ({type: "CHANGE_PROFILE_STATUS", status} as const)
+export const changeProfileStatusAC = (status: string) =>
+  ({ type: "CHANGE_PROFILE_STATUS", status } as const);
 
 //thunk creators
+export const changeProfileStatus =
+  (newStatus: string) =>
+  async (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
+    try {
+      const response = await profileAPI.changeProfileStatus(newStatus);
+      console.log("response data: ", response.data);
+      dispatch(changeProfileStatusAC(newStatus));
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
 export const getUserProfileTC =
   (userId: number) =>
   (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
@@ -102,10 +115,7 @@ export const getUserProfileTC =
   };
 
 export const getUserProfileStatus =
-  (
-    userId: number
-    // , statusText: string
-  ) =>
+  (userId: number) =>
   async (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     try {
       const response = await profileAPI.getProfileStatus(userId);
@@ -122,7 +132,7 @@ export type AddPostActionType = ReturnType<typeof addPostAC>;
 export type UpdatePostActionType = ReturnType<typeof updateNewPostTextAC>;
 export type SetUserProfileType = ReturnType<typeof setUserProfile>;
 export type SetProfileStatus = ReturnType<typeof setProfileStatus>;
-export type ChangeProfileStatus = ReturnType<typeof changeProfileStatus>;
+export type ChangeProfileStatus = ReturnType<typeof changeProfileStatusAC>;
 export type ProfileActionsType =
   | AddPostActionType
   | UpdatePostActionType
@@ -130,6 +140,6 @@ export type ProfileActionsType =
   | SendMessageType
   | SetUserProfileType
   | SetProfileStatus
-  | ChangeProfileStatus
+  | ChangeProfileStatus;
 
 export default profileReducer;

@@ -1,23 +1,22 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {UserProfileType} from "../../redux/profile-reducer";
+import { ProfileContainerPropsType } from "./ProfileContainer";
 
-export type ProfilePropsType = {
-	userProfile: UserProfileType | null
-	profileStatus: string
-}
+export type ProfilePropsType = Pick<ProfileContainerPropsType, "userProfile" | "profileStatus" | "changeProfileStatus">;
 
-const Profile: React.FC<ProfilePropsType>= ({userProfile, profileStatus}) => {
-
-   
-
-	return (
-		<div>
-			<ProfileInfo userProfile={userProfile} status={profileStatus}/>
-			<MyPostsContainer />
-		</div>
-	);
+const Profile: React.FC<ProfilePropsType> = (props) => {
+  const { userProfile, profileStatus, changeProfileStatus } = props;
+  return (
+    <div>
+      <ProfileInfo
+        userProfile={userProfile}
+        profileStatus={profileStatus}
+        changeProfileStatus={changeProfileStatus}
+      />
+      <MyPostsContainer />
+    </div>
+  );
 };
 
 export default Profile;
