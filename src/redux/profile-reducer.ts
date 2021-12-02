@@ -2,7 +2,6 @@ import { SendMessageType, UpdateMessageBodyType } from "./dialogs-reducer";
 import { profileAPI, userAPI } from "../api/socialNetAPI";
 import { ThunkDispatch } from "redux-thunk";
 import { AppRootType } from "./store-redux";
-import { type } from "os";
 
 export type PostType = {
   id: number;
@@ -37,13 +36,17 @@ export type ProfilePageType = {
   newPostText: string;
   profile: UserProfileType | null;
   profileStatus: string;
+  isError: boolean;
+  errorMessage: string;
 };
 
 let initialState = {
   posts: [],
   newPostText: "",
   profile: null,
-  profileStatus: "hey",
+  profileStatus: "",
+  isError: false,
+  errorMessage: " ",
 };
 
 //reducer
@@ -77,6 +80,10 @@ const profileReducer = (
 
     case "CHANGE_PROFILE_STATUS":
       return { ...state, profileStatus: action.status };
+    case "SET_IS_ERROR":
+      return { ...state, isError: action.error };
+    case "SET_ERROR_MESSAGE":
+      return { ...state, errorMessage: action.errorMessage };
     default:
       return state;
   }
@@ -92,6 +99,10 @@ export const setProfileStatus = (profileStatus: string) =>
   ({ type: "SET_USER_STATUS", profileStatus } as const);
 export const changeProfileStatusAC = (status: string) =>
   ({ type: "CHANGE_PROFILE_STATUS", status } as const);
+export const setErrorAC = (error: boolean) =>
+  ({ type: "SET_IS_ERROR", error } as const);
+export const setErrorMessageAC = (errorMessage: string) =>
+  ({ type: "SET_ERROR_MESSAGE", errorMessage } as const);
 
 //thunk creators
 export const changeProfileStatus =
@@ -99,8 +110,14 @@ export const changeProfileStatus =
   async (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     try {
       const response = await profileAPI.changeProfileStatus(newStatus);
-      console.log("response data: ", response.data);
-      dispatch(changeProfileStatusAC(newStatus));
+      if (response.data.resultCode === 0) {
+        console.log("response data: ", response.data);
+        dispatch(changeProfileStatusAC(newStatus));
+      } else {
+        dispatch(setErrorAC(true));
+        dispatch(setErrorMessageAC(response.data.messages[0]));
+        console.log("Error message: ", response.data.messages);
+      }
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -119,7 +136,6 @@ export const getUserProfileStatus =
   async (dispatch: ThunkDispatch<AppRootType, unknown, ProfileActionsType>) => {
     try {
       const response = await profileAPI.getProfileStatus(userId);
-      console.log("response.data: ", response.data);
       console.log(typeof response.data);
       dispatch(setProfileStatus(response.data));
     } catch (error) {
@@ -133,6 +149,8 @@ export type UpdatePostActionType = ReturnType<typeof updateNewPostTextAC>;
 export type SetUserProfileType = ReturnType<typeof setUserProfile>;
 export type SetProfileStatus = ReturnType<typeof setProfileStatus>;
 export type ChangeProfileStatus = ReturnType<typeof changeProfileStatusAC>;
+export type SetErrorType = ReturnType<typeof setErrorAC>;
+export type SetErrorMessageType = ReturnType<typeof setErrorMessageAC>;
 export type ProfileActionsType =
   | AddPostActionType
   | UpdatePostActionType
@@ -140,6 +158,8 @@ export type ProfileActionsType =
   | SendMessageType
   | SetUserProfileType
   | SetProfileStatus
-  | ChangeProfileStatus;
+  | ChangeProfileStatus
+  | SetErrorType
+  | SetErrorMessageType;
 
 export default profileReducer;

@@ -8,6 +8,7 @@ import {
   UserProfileType,
   getUserProfileStatus,
   changeProfileStatus,
+  setErrorAC
 } from "../../redux/profile-reducer";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -20,12 +21,15 @@ type PathParamsType = {
 type MapStatePropsType = {
   userProfile: UserProfileType | null;
   profileStatus: string;
+  isError: boolean;
+  errorMessage: string;
 };
 type MapDispatchPropsType = {
   setUserProfile: (profile: UserProfileType | null) => void;
   getUserProfileTC: (userId: number) => void;
   getUserProfileStatus: (userId: number) => void;
   changeProfileStatus: (status: string) => void;
+  setErrorAC: (error: boolean) => void;
 };
 export type ProfileContainerPropsType = MapStatePropsType &
   MapDispatchPropsType;
@@ -44,12 +48,11 @@ class ProfileContainer extends React.Component<CommonPropsType> {
   }
 
   render() {
-      console.log("all props: ", this.props);
-      
+    console.log("statusLength: ", this.props.profileStatus.length);
+
     return (
       <div>
         <Profile {...this.props} />
-        {/* userProfile={this.props.userProfile} profileStatus={this.props.profileStatus} */}
       </div>
     );
   }
@@ -62,6 +65,8 @@ let mapStateToProps = (state: AppRootType): MapStatePropsType => {
   return {
     userProfile: state.profilePage.profile,
     profileStatus: state.profilePage.profileStatus,
+    isError: state.profilePage.isError,
+    errorMessage: state.profilePage.errorMessage,
   };
 };
 
@@ -75,6 +80,7 @@ export default compose<React.ComponentType>(
     getUserProfileTC,
     getUserProfileStatus,
     changeProfileStatus,
+    setErrorAC,
   }),
   withRouter,
   withAuthRedirect

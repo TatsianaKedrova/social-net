@@ -13,13 +13,16 @@ img {
   border-radius: 50%;
   object-fit: cover;
 }
+.alertStyle {
+    width: 40%;
+}
 
 .profileStatus {
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: rgb(125, 62, 189);
-  width: 40%;
+  max-width: 40%;
   margin-top: 10px;
   padding-top: 3px;
   border-radius: 10px;
@@ -27,6 +30,7 @@ img {
 
 .statusStyle {
   color: white;
+  float: left;
 }
 
 .editor {

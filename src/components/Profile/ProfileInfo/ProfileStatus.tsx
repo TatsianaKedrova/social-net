@@ -3,77 +3,84 @@ import classes from "./ProfileInfo.module.css";
 import { FiEdit2 } from "react-icons/fi";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { TextField } from "@material-ui/core";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import { ProfilePropsType } from "../Profile";
 
-type ProfileStatusType = {
-  status: string;
-  changeStatus: (status: string) => void;
-};
+type ProfileStatusType = Omit<ProfilePropsType, "userProfile">;
 
 class ProfileStatus extends React.Component<ProfileStatusType> {
   state = {
     editMode: false,
-    inputText: this.props.status,
+    inputText: this.props.profileStatus,
   };
 
   onEditMode() {
-    console.log(this.state.editMode);
     this.setState({
       editMode: true,
     });
-    console.log(this.state.editMode);
   }
   offEditMode() {
     this.setState({
       editMode: false,
-      inputText: this.props.status,
+      inputText: this.props.profileStatus,
     });
   }
 
-    onInputTextChange = (event: ChangeEvent<HTMLInputElement>) => (
-      this.setState({
-        inputText: event.target.value
-    })
-    )
+  onInputTextChange = (event: ChangeEvent<HTMLInputElement>) =>
+    this.setState({
+      inputText: event.target.value,
+    });
 
-    // onChangeStatus = () => {
-    //   this.props.changeStatus(this.state.inputText)
-    // }
-       
   onKeyPressChangeStatus = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-    this.offEditMode();
-    console.log("input text: ", this.state.inputText);
-    this.props.changeStatus(this.state.inputText)
+      this.offEditMode();
+      this.props.changeProfileStatus(this.state.inputText);
     }
   };
+
+  closeAlert = () => {
+    this.props.setErrorAC(false);
+  };
+
   render() {
-    console.log("this.props.status: ", this.props.status);
+    if (this.state.editMode) {
+      return (
+        <div>
+          <TextField
+            color={"primary"}
+            id="outlined-basic"
+            variant="outlined"
+            value={this.state.inputText}
+            onChange={this.onInputTextChange}
+            autoFocus
+            onBlur={this.offEditMode.bind(this)}
+            onKeyPress={this.onKeyPressChangeStatus}
+          />
+        </div>
+      );
+    }
 
     return (
       <>
-        {!this.state.editMode ? (
-          <div className={classes.profileStatus}>
-            <div className={classes.statusStyle}>{this.props.status}</div>
-            <div
-              className={classes.editor}
-              onDoubleClick={this.onEditMode.bind(this)}
-            >
-              <FiEdit2 />
-            </div>
+        <div className={classes.profileStatus}>
+          <div className={classes.statusStyle}>{this.props.profileStatus}</div>
+          <div
+            className={classes.editor}
+            onDoubleClick={this.onEditMode.bind(this)}
+          >
+            <FiEdit2 />
           </div>
-        ) : (
-          <div>
-            <TextField
-              color={"primary"}
-              id="outlined-basic"
-              variant="outlined"
-              value={this.state.inputText}
-              onChange={this.onInputTextChange}
-              autoFocus
-              onBlur={this.offEditMode.bind(this)}
-              onKeyPress={this.onKeyPressChangeStatus}
-            />
-          </div>
+        </div>
+        {this.props.isError && (
+          <Alert
+            severity="error"
+            className={classes.alertStyle}
+            onClose={this.closeAlert}
+          >
+            <AlertTitle>Error</AlertTitle>
+            {this.props.errorMessage}
+          </Alert>
         )}
       </>
     );
